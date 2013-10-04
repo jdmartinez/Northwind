@@ -20,32 +20,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-//using ServiceStack.Api.Swagger;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
-using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
-using ServiceStack.OrmLite;
-//using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.Cors;
-using ServiceStack.ServiceInterface.Validation;
-using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
-//using ServiceStack.Razor;
+using System.Text;
 
-namespace ManHouse.Host
+namespace ManHouse.ServiceBase
 {
     /// <summary>
-    /// Clase que representa la aplicación Web
+    /// Interfaz que representa una petición de colección
     /// </summary>
-    public class AppHost : AppHostBase
+    public interface ICollectionRequest
     {
-        public AppHost()
-            : base("ManHouse web services", typeof(CustomersService).Assembly)
-        {
-        }
+        /// <summary>
+        /// Primer elemento de la petición
+        /// </summary>
+        int Offset { get; set; }
+
+        /// <summary>
+        /// Límite de elementos
+        /// </summary>
+        int Limit { get; set; }
     }
 }

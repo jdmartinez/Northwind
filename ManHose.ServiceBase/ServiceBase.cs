@@ -6,6 +6,7 @@ using ManHouse.Data.Model;
 using ManHouse.Data.Repositories;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using ServiceStack.Common;
 using ServiceStack.Common.Utils;
 using ServiceStack.Common.Web;
 
@@ -45,9 +46,9 @@ namespace ManHouse.ServiceBase
                     }
 
                     Response.AddHeaderLastModified(result.LastUpdated);
-                    //Response.AddHeader(HttpHeaders.ETag, result.GetE
+                    Response.AddHeader(HttpHeaders.ETag, result.GetETagValue());
 
-                    //return new SingleResponse<TDto> {Result=result.Trans
+                    return new SingleResponse<TDto> { Result = result.TranslateTo<TDto>() };
                 });
         }
 

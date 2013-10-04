@@ -14,38 +14,26 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-*/
+*/        
 #endregion
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-//using ServiceStack.Api.Swagger;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
-using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
-using ServiceStack.OrmLite;
-//using ServiceStack.OrmLite.Sqlite;
+using System.Text;
 using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.Cors;
-using ServiceStack.ServiceInterface.Validation;
-using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
-//using ServiceStack.Razor;
+using ManHouse.ServiceBase;
+using ManHouse.ServiceModel.Dto;
 
-namespace ManHouse.Host
+namespace ManHouse.ServiceModel.Contracts
 {
     /// <summary>
-    /// Clase que representa la aplicación Web
+    /// Clase que representa una petición del tipo <see cref="Customer"/> por su clave
     /// </summary>
-    public class AppHost : AppHostBase
+    [Api("Get Orders from a single Customer by Id.")]
+    //[Route("/customers/{Id}/orders", "GET, DELETE")]
+    public class CustomerOrders : CollectionRequest<Order>
     {
-        public AppHost()
-            : base("ManHouse web services", typeof(CustomersService).Assembly)
-        {
-        }
+        public string Id { get; set; }
     }
 }

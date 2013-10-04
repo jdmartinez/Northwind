@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A03961A5-140E-41E2-85A4-44B2E13B3EEF}</ProjectGuid>
+    <ProjectGuid>{3F6F1778-5EC9-414F-BA57-197F854093F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ManHouse.Common</RootNamespace>
-    <AssemblyName>ManHouse.Common</AssemblyName>
+    <RootNamespace>ManHouse.ServiceModel</RootNamespace>
+    <AssemblyName>ManHouse.ServiceModel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,8 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionUtils.cs" />
+    <Compile Include="Dto\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ManHose.ServiceBase\ManHouse.ServiceBase.csproj">
+      <Project>{392760D5-597C-4037-96F8-BBAC4FD48D3B}</Project>
+      <Name>ManHouse.ServiceBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

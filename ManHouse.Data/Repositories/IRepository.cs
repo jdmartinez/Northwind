@@ -104,9 +104,6 @@ namespace ManHouse.Data.Repositories
         /// <param name="id">valor de la clave</param>
         /// <param name="includes">Entidades relacionadas que se incluirán en el resultado</param>
         /// <returns></returns>
-        TEntity GetIncluding(object id, params Expression<Func<TEntity, object>>[] includes)
-        {
-            throw new NotImplementedException();
-        }
+        TEntity GetIncluding(object id, params Expression<Func<TEntity, object>>[] includes);
     }
 }

@@ -14,38 +14,35 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-*/
+*/        
 #endregion
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-//using ServiceStack.Api.Swagger;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
-using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
-using ServiceStack.OrmLite;
-//using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.Cors;
-using ServiceStack.ServiceInterface.Validation;
-using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
-//using ServiceStack.Razor;
+using System.Text;
+using ServiceStack.ServiceInterface;
+using ManHouse.ServiceBase;
+using ManHouse.ServiceModel.Dto;
+using ManHouse.ServiceModel.Contracts;
+using ManHouse.Data.Model;
 
-namespace ManHouse.Host
+
+namespace ManHouse.ServiceInterface.Services
 {
     /// <summary>
-    /// Clase que representa la aplicación Web
+    /// Servicio de <see cref="Customer"/>
     /// </summary>
-    public class AppHost : AppHostBase
+    public class CustomersService : Servicebase<CustomerEntity, Customer>
     {
-        public AppHost()
-            : base("ManHouse web services", typeof(CustomersService).Assembly)
+        /// <summary>
+        /// Recuperación de <see cref="Order"/> para un <see cref="Customer"/>
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public object Get(CustomerOrders request)
         {
+            var cacheKey = new Cach
         }
     }
 }

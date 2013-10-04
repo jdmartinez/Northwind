@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0D115534-5F15-4C0A-B4EF-6C3102400FA4}</ProjectGuid>
+    <ProjectGuid>{D6A2B855-3743-415C-B832-682C0BA2E84E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ManHouse.Data</RootNamespace>
-    <AssemblyName>ManHouse.Data</AssemblyName>
+    <RootNamespace>ManHouse.ServiceInterface</RootNamespace>
+    <AssemblyName>ManHouse.ServiceInterface</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,31 +32,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ServiceStack">
-      <HintPath>..\packages\ServiceStack.3.9.63\lib\net35\ServiceStack.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.3.9.64\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common">
-      <HintPath>..\packages\ServiceStack.Common.3.9.63\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Common.3.9.64\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\packages\ServiceStack.Common.3.9.63\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Common.3.9.64\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite">
-      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.63\lib\net35\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.64\lib\net35\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite.SqlServer">
-      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.63\lib\net35\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.64\lib\net35\ServiceStack.OrmLite.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Redis">
-      <HintPath>..\packages\ServiceStack.Redis.3.9.63\lib\net35\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Redis.3.9.64\lib\net35\ServiceStack.Redis.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>..\packages\ServiceStack.3.9.63\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.3.9.64\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
-      <HintPath>..\packages\ServiceStack.Text.3.9.63\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.3.9.64\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -65,24 +64,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ETagAttribute.cs" />
-    <Compile Include="Expressions\SqlSelectExpressionTranslator.cs" />
-    <Compile Include="Model\CustomersEntity.cs" />
-    <Compile Include="Model\EntityExtensions.cs" />
-    <Compile Include="Model\IEntity.cs" />
-    <Compile Include="Model\MiembrosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadExtensions.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Services\CustomersService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ManHouse.Common\ManHouse.Common.csproj">
-      <Project>{A03961A5-140E-41E2-85A4-44B2E13B3EEF}</Project>
-      <Name>ManHouse.Common</Name>
+    <ProjectReference Include="..\ManHose.ServiceBase\ManHouse.ServiceBase.csproj">
+      <Project>{392760D5-597C-4037-96F8-BBAC4FD48D3B}</Project>
+      <Name>ManHouse.ServiceBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManHouse.Data\ManHouse.Data.csproj">
+      <Project>{0D115534-5F15-4C0A-B4EF-6C3102400FA4}</Project>
+      <Name>ManHouse.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

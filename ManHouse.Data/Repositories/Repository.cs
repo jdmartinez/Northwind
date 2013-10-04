@@ -158,6 +158,18 @@ namespace ManHouse.Data.Repositories
         }
 
         /// <summary>
+        /// Elimina la entidad TEntity
+        /// </summary>
+        /// <param name="entity">Entidad a eliminar </param>
+        public void Delete(TEntity entity)
+        {
+            using (var db = dbFactory.OpenDbConnection())
+            {
+                db.Delete<TEntity>(entity);
+            }
+        }
+
+        /// <summary>
         /// Elimina todos los elementos de la lista
         /// </summary>
         /// <param name="entities">Elementos a eliminar</param>

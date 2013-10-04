@@ -67,6 +67,7 @@
     <Compile Include="CommonDto.cs" />
     <Compile Include="IDto.cs" />
     <Compile Include="IResponse.cs" />
+    <Compile Include="Relations\RelationType.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,11 +78,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ManHouse.Common\ManHouse.Common.csproj">
+      <Project>{A03961A5-140E-41E2-85A4-44B2E13B3EEF}</Project>
+      <Name>ManHouse.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ManHouse.Data\ManHouse.Data.csproj">
       <Project>{0D115534-5F15-4C0A-B4EF-6C3102400FA4}</Project>
       <Name>ManHouse.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
