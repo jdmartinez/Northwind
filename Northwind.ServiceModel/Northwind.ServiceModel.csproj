@@ -87,12 +87,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Northwind.ServiceBase\Northwind.ServiceBase.csproj">
-      <Project>{3B12E984-CC87-42E2-AF76-EFA9025BDF89}</Project>
-      <Name>Northwind.ServiceBase</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

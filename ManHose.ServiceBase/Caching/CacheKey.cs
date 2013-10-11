@@ -23,7 +23,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
-namespace ManHouse.ServiceBase.Cachng
+namespace ManHouse.ServiceBase.Caching
 {
     /// <summary>
     /// Clase que representa una clave de caché

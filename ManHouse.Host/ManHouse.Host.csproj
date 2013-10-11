@@ -90,6 +90,28 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ManHose.ServiceBase\ManHouse.ServiceBase.csproj">
+      <Project>{392760D5-597C-4037-96F8-BBAC4FD48D3B}</Project>
+      <Name>ManHouse.ServiceBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManHouse.Common\ManHouse.Common.csproj">
+      <Project>{A03961A5-140E-41E2-85A4-44B2E13B3EEF}</Project>
+      <Name>ManHouse.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManHouse.Data\ManHouse.Data.csproj">
+      <Project>{0D115534-5F15-4C0A-B4EF-6C3102400FA4}</Project>
+      <Name>ManHouse.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManHouse.ServiceInterface\ManHouse.ServiceInterface.csproj">
+      <Project>{D6A2B855-3743-415C-B832-682C0BA2E84E}</Project>
+      <Name>ManHouse.ServiceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManHouse.ServiceModel\ManHouse.ServiceModel.csproj">
+      <Project>{3F6F1778-5EC9-414F-BA57-197F854093F1}</Project>
+      <Name>ManHouse.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>

@@ -14,37 +14,37 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-*/        
+*/
 #endregion
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.ServiceInterface;
-using ManHouse.ServiceBase;
-using ManHouse.ServiceBase.Caching;
-using ManHouse.ServiceModel.Dto;
-using ManHouse.ServiceModel.Contracts;
-using ManHouse.Data.Model;
+using ManHouse.ServiceBase.Meta;
 
-
-namespace ManHouse.ServiceInterface.Services
+namespace ManHouse.ServiceBase
 {
     /// <summary>
-    /// Servicio de <see cref="Customer"/>
+    /// Interfaz que representa una respuesta en forma de colección
     /// </summary>
-    public class CustomersService : Servicebase<CustomerEntity, Customer>
+    /// <typeparam name="TDto"></typeparam>
+    public interface ICollectionResponse<TDto>
+        where TDto : IDto, new()
     {
         /// <summary>
-        /// Recuperación de <see cref="Order"/> para un <see cref="Customer"/>
+        /// Número de elementos
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public object Get(CustomerOrders request)
-        {
-            var cacheKey = new CacheKey(Request.AbsoluteUri, Request.Headers).ToString();
-            
-        }
+        int Count { get; }
+
+        /// <summary>
+        /// Resultado
+        /// </summary>
+        List<TDto> Result { get; set; }
+
+        /// <summary>
+        /// Metadatos
+        /// </summary>
+        Metadata Metadata { get; set; }
     }
 }

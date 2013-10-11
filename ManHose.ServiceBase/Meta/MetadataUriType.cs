@@ -14,37 +14,44 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-*/        
+*/
 #endregion
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.ServiceInterface;
-using ManHouse.ServiceBase;
-using ManHouse.ServiceBase.Caching;
-using ManHouse.ServiceModel.Dto;
-using ManHouse.ServiceModel.Contracts;
-using ManHouse.Data.Model;
 
-
-namespace ManHouse.ServiceInterface.Services
+namespace ManHouse.ServiceBase.Meta
 {
     /// <summary>
-    /// Servicio de <see cref="Customer"/>
+    /// Define los tipos de <see cref="Uri"/> presentes en los metadatos
     /// </summary>
-    public class CustomersService : Servicebase<CustomerEntity, Customer>
+    public enum MetadataUriType
     {
         /// <summary>
-        /// Recuperación de <see cref="Order"/> para un <see cref="Customer"/>
+        /// <see cref="Uri"/> que representa a la misma entidad
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public object Get(CustomerOrders request)
-        {
-            var cacheKey = new CacheKey(Request.AbsoluteUri, Request.Headers).ToString();
-            
-        }
+        Self,
+
+        /// <summary>
+        /// <see cref="Uri"/> que representa a la siguiente página de datos
+        /// </summary>
+        Next,
+
+        /// <summary>
+        /// <see cref="Uri"/> que representa a la anterior página de datos
+        /// </summary>
+        Previous,
+
+        /// <summary>
+        /// <see cref="Uri"/> que representa a la primera página de datos
+        /// </summary>
+        First,
+
+        /// <summary>
+        /// <see cref="Uri"/> que representa a la última página de datos
+        /// </summary>
+        Last
     }
 }

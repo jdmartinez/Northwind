@@ -79,6 +79,10 @@
       <Project>{0D115534-5F15-4C0A-B4EF-6C3102400FA4}</Project>
       <Name>ManHouse.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ManHouse.ServiceModel\ManHouse.ServiceModel.csproj">
+      <Project>{3F6F1778-5EC9-414F-BA57-197F854093F1}</Project>
+      <Name>ManHouse.ServiceModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

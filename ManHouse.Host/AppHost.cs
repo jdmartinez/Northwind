@@ -34,6 +34,12 @@ using ServiceStack.ServiceInterface.Cors;
 using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
+using ManHouse.ServiceBase;
+using ManHouse.ServiceInterface.Services;
+using ManHouse.ServiceBase.Meta;
+using ManHouse.ServiceBase.Relations;
+using ManHouse.ServiceModel.Dto;
+
 //using ServiceStack.Razor;
 
 namespace ManHouse.Host
@@ -47,5 +53,39 @@ namespace ManHouse.Host
             : base("ManHouse web services", typeof(CustomersService).Assembly)
         {
         }
+
+        #region Miembros de AppHostBase
+
+        #region Configure
+
+        /// <summary>
+        /// Configuración de los servicios web
+        /// </summary>
+        /// <param name="container">Contenedor IoC</param>
+        public override void Configure(Funq.Container container)
+        {
+            //JSON
+            JsConfig.EmitCamelCaseNames = true;
+            JsConfig.IncludeNullValues = false;
+            JsConfig.DateHandler = JsonDateHandler.ISO8601;
+            JsConfig.EscapeUnicode = true;
+            JsConfig<MetadataUriType>.SerializeFn = text => text.ToString().ToCamelCase();
+            JsConfig<RelationType>.SerializeFn = text => text.ToString().ToCamelCase();
+
+            // ServiceStack
+            SetConfig(new EndpointHostConfig { DebugMode = true });
+
+            // Rutas
+            Routes
+                .Add<CollectionRequest<Customer>>("/customers", "GET, PUT")
+                .Add<SingleRequest<Customer>>("/customers/{Id}", "GET, DELETE, POST");
+
+            // Plugins
+            var queryPlugin = new QueryLang
+        }
+
+        #endregion
+
+        #endregion
     }
 }
