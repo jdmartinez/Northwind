@@ -78,6 +78,10 @@
     <Compile Include="Meta\Metadata.cs" />
     <Compile Include="Meta\MetadataUriType.cs" />
     <Compile Include="Query\IQueryExpression.cs" />
+    <Compile Include="Query\Parser\ClassFactory.cs" />
+    <Compile Include="Query\Parser\ClassSignature.cs" />
+    <Compile Include="Query\Parser\QueryParametersParser.cs" />
+    <Compile Include="Query\Parser\SelectExpressionFactory.cs" />
     <Compile Include="Query\QueryExpression.cs" />
     <Compile Include="Query\QueryLanguageFeature.cs" />
     <Compile Include="Relations\RelationAttribute.cs" />

@@ -81,7 +81,12 @@ namespace ManHouse.ServiceBase.Query
         #region Métodos privados
 
         #region ProcessRequest
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="res"></param>
+        /// <param name="dto"></param>
         private void ProcessRequest(IHttpRequest req, IHttpResponse res, object dto)
         {
             Verify.ArgumentNotNull(req);
@@ -98,7 +103,23 @@ namespace ManHouse.ServiceBase.Query
 
         #region SetQueryExpression
 
-        private void SetQueryExpression( ISearchable dto, Name
+        /// <summary>
+        /// Establece la expresión de selección
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="queryString"></param>
+        private void SetQueryExpression(ISearchable dto, NameValueCollection queryString)
+        {
+            var typeOfDto = dto.GetType().IsGenericType ? dto.GetType().GetGenericArguments() : new Type[] { dto.GetType() };
+
+            Type associatedType;
+
+            if (_associations.TryGetValue(typeOfDto.First(), out associatedType))
+            {
+                var parserType = typeof(Query
+            }
+        }
+
         #endregion
 
         #endregion
