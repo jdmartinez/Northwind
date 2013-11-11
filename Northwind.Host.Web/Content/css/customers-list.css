@@ -1,0 +1,19 @@
+table.customers-list .avatar, table.customers-list table.customers-list i.avatar, table.customers-list table.customers-list i.avatar {
+  border: 1px solid #cbd3d8;
+  float: left;
+  height: 48px;
+  margin-right: 12px;
+  position: relative;
+  width: 48px; }
+table.customers-list i.avatar {
+  color: #cbd3d8;
+  font-size: 36px;
+  padding-top: 4px;
+  text-align: center; }
+
+table.customers-list a.title {
+  display: block;
+  font-weight: 400; }
+table.customers-list .subtitle {
+  color: #8e8e93;
+  font-size: 0.9em; }

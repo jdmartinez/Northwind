@@ -1,0 +1,6 @@
+@import 'globals';
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+	background-color: $table-hover-color;
+}

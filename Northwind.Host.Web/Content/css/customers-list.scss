@@ -1,0 +1,38 @@
+@import 'globals';
+
+$avatar-border-color: #cbd3d8;
+$avatar-width: 48px;
+$avatar-height: 48px;
+$subtitle-color: #8e8e93;
+
+table.customers-list {
+	.avatar {
+		border: 1px solid $avatar-border-color;		
+		float: left;
+		height: $avatar-height;
+		margin-right: 12px;	
+		position: relative;
+		width: $avatar-width;
+	}
+
+	i.avatar {
+		@extend .avatar;
+
+		color: $avatar-border-color;
+		font-size: 36px;
+		padding-top: 4px;
+		text-align: center;		
+	}
+}
+
+table.customers-list {
+	a.title {
+		display: block;
+		font-weight: 400;
+	}
+
+	.subtitle {
+		color: $subtitle-color;
+		font-size: 0.9em;
+	}
+}

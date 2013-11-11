@@ -1,9 +1,10 @@
 ﻿application.js
+templates.js
 
 common/namespaces.js
 common/uri.js
 
-components/grid/main.js
+components/main.js
 components/grid/pagination_mixin.js
 components/grid/column.js
 components/grid/grid_controller.js
@@ -18,6 +19,8 @@ components/grid/row_view.js
 components/grid/cell_view.js
 components/grid/footer_view.js
 
+components/avatar/avatar_view.js
+
 adapters/application_adapter.js
 
 serializers/application_serializer.js
@@ -25,11 +28,19 @@ serializers/application_serializer.js
 routes/application_route.js
 routes/customers_route.js
 routes/customer_route.js
+routes/orders_route.js
+routes/order_route.js
+routes/suppliers_route.js
+routes/supplier_route.js
 
 controllers/object_controller.js
 controllers/array_controller.js
 controllers/customer_controller.js
 controllers/customers_controller.js
+controllers/order_controller.js
+controllers/orders_controller.js
+controllers/supplier_controller.js
+controllers/suppliers_controller.js
 
 views/text_edit_view.js
 views/customers_view.js
