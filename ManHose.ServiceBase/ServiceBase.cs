@@ -21,8 +21,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ServiceStack.Common;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using ServiceStack.Common.Web;
+using ManHouse.Common;
 using ManHouse.Data.Model;
+using ManHouse.Data.Repositories;
+using ManHouse.ServiceBase.Caching;
 
 namespace ManHouse.ServiceBase
 {
@@ -30,5 +36,52 @@ namespace ManHouse.ServiceBase
         where TEntity : IEntity, new()
         where TDto : CommonDto, new()
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly IRepository<TEntity> Repository;
+
+        public ServiceBase(IRepository<TEntity> repository)
+        {
+            Verify.ArgumentNotNull(repository);
+
+            Repository = repository;
+        }
+
+        #region Métodos públicos
+
+        #region GetCurrentRequestCacheKey
+        /// <summary>
+        /// Devuelve una clave de caché para la petición actual
+        /// </summary>
+        /// <returns>Cadena con la clave de caché para la petición actual</returns>
+        public virtual string GetCurrentRequestCacheKey()
+        {
+            return new CacheKey(Request.AbsoluteUri, Request.Headers).ToString();
+        }
+        #endregion
+
+        #endregion
+
+        #region Métodos protegidos
+
+        #region GetSingle
+        protected TResponse GetSingle<TResponse>(SingleRequest request) where TResponse : SingleResponse<TDto>, new()
+        {
+            var result = Repository.Get(request.Id);
+
+            if (result == null)
+            {
+                throw HttpError.NotFound("Not Found");
+            }
+
+            Response.AddHeaderLastModified(result.LastUpdated);
+            Response.AddHeader(HttpHeaders.ETag, result.GetETagValue());
+
+            return TypeExtensionHelper.CreateInstance<TResponse>(result.TranslateTo<TDto>());
+        }
+        #endregion
+
+        #endregion
     }
 }

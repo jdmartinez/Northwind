@@ -78,7 +78,12 @@ namespace ManHouse.ServiceBase.Caching
         /// <returns></returns>
         public override string ToString()
         {
-            return base.ToString();
+            if (String.IsNullOrEmpty(_toString))
+            {
+                _toString = String.Format(CacheKeyFormat, _resourceUri, String.Join("-", _headerValues));
+            }
+
+            return _toString;
         }
 
         #endregion

@@ -24,31 +24,11 @@ using System.Text;
 
 namespace ManHouse.ServiceBase
 {
-    public class SingleResponse<TResult> 
-        where TResult : IDto, new()
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface ISingleRequest
     {
-        #region Miembros de IResponse<TResult>
-
-        protected virtual TResult Result { get; set; }
-
-        #endregion
-
-        #region Constructores
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public SingleResponse() { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="result"></param>
-        public SingleResponse(TResult result)
-        {
-            Result = result;
-        }
-
-        #endregion
+        object Id { get; set; }
     }
 }
