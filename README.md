@@ -1,167 +1,41 @@
-# Estructura de la solución
+# Nortwind #
 
-  * **Northwind.Common**. *Clases uso común*
-  * **Northwind.Data**. *Clases del modelo de datos y repositorios de acceso*
-    * Model			    
-    * Repositories		
-  * **Northwind.Host**. *Servicio web*
-  * **Northwind.ServiceBase**. *Clases base de servicio*
-    * Caching. *Clases relacionadas con cache*
-    * Common. *Clases de uso común*
-    * Formats. *Formatos de respuesta adicionales*
-    * Meta.  *Clases de metadatos en respuesta*
-    * Query. *Clases de gestión de lenguaje de selección*
-  * **NorthWind.ServiceInterface**. *Clases de implementación del servicio*
-    * Services
-    * Validators. *Clases de validación*
-  * **NorthWind.ServiceModel**. *Modelo del servicio*
-    * Contracts. *Clases de petición (Request)*
-    * Dto. *Clases Dto*
-    * Operations. *Clases de respuesta (Response)*    
-  * **Northwind.Services.Test**. *Clases de test*
+Ejemplo de servicio web RESTful con interfaz de usuario HTML5 y CSS3. Este proyecto incluye algunos proyectos de código abierto como: 
 
-# Guía de diseño de la API
+- [ServiceStack](http://www.servicestack.net/) - Librería .NET para el desarrollo de servicios web.
+  - [Bundler](https://github.com/ServiceStack/Bundler) - Utilizades basadas en node.js para la unión y compresión de archivos CoffeeScript, Less, Sass, js y css. 
+- [ASP.NET MVC3](http://www.asp.net/mvc/mvc3) - ASP.NET MVC Web Framework
+- [Grunt](http://gruntjs.com/) - Gestor de tareas programadas basado en node.js
+  - [grunt-ember-templates](https://github.com/dgeb/grunt-ember-templates) - Precompilador de plantillas Handlebars 
+- [Twitter Bootstrap](http://twitter.github.com/bootstrap/) - Librería CSS de diseño web.
+- [EmberJS](http://emberjs.com/) - Librería para el desarrollo de aplicaciones web.
+  - [Handlebars](http://handlebarsjs.com/) - Librería para la creación de plantillas web.
+  - [jQuery](http://jquery.com/) - Librería para la manipulación del DOM.
 
-Los servicios de este proyecto seguirán las siguientes recomendaciones.
 
-## Nombrado de los servicios
+## Características actuales ##
 
-Los servicios que hagan referencia a recursos estarán nombrados como nombres comunes en plural.
+Actualmente el proyecto soporta una pequeña serie de características. Las que están disponibles actualmente son:
 
-La URL base del servicio siempre hará referencia a una colección. La recuperación de un elemento específico se realizará añadiendo el valor de la propiedad clave de la entidad.
+**Servidor**
 
-**URL base**
+- Recuperación de elementos y colecciones (sólo *Customers*, *Orders* y *Shippers*).
+- Paginación.
+- Primer intento de resultados parciales.
 
-	/customers
+## Características planeadas ##
 
-**URL para una entidad específica**
+Las características planeadas para este desarrollo son:
 
-	/customers/1234
+**Servidor**
 
-## Elementos totales de una colección
+- Relaciones.
+- Resultados parciales en entidades relacionadas.
+- Filtrado.
+- Gestión de errores.
+- Agregados (`COUNT`, `MAX`, etc.).
 
-Se podrá recuperar el total de registros de una colección accediendo al recurso `count` de la misma. Este recurso devolverá únicamente el número total de elementos de la colección.
+**Web**
 
-	/customers/count
+El objetivo es implementar una especie de aplicación CRM que utilice todas las características que ofrece el servicio utilizando HTML5 y CSS3.
 
-## Códigos de error
-
-Los códigos de error serán equivalentes a los códigos de [status HTTP](http://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP). Por ejemplo:
-
-  * 200 - OK
-  * 201 - Creado
-  * 304 - No modificado
-  * 400 - Petición incorrecta
-  * 401 - No autorizado
-  * 403 - Prohibido
-  * 404 - No encontrado
-  * 500 - Error interno del servidor
-
-## Paginación
-
-Se utilizarán los parámetros `offset` y `limit` para informar de la cantidad de resultados que se devuelven, donde `offset` marca el primer registro de la lista y `limit` el número de registros que se recuperarán.
-
-Por ejemplo, para recuperar los registros del 31 al 40:
-
-	/customers?offset=31&limit=10
-
-Se establecerá un valor por defecto para la recuperación de cualquier lista. Jamás se devolverán todos los registros. 
-
-Para el ejemplo anterior, `/customers` es equivalente a `/customers?offset=1&limit=10`.
-
-## Ordenación
-
-Se utilizará el parámetro `orderby` seguido de una lista separada por comas para indicar el orden en el que se devolverán los resultados. Si no se indica nada, la lista siempre indicará orden ascendente. Para indicar una ordenación descendente, se utilizará el parámetro `desc` a continuación del elemento de la lista necesario.
-
-Por ejemplo, para recuperar los 10 primeros registros ordenados por nombre de manera ascendente sería:
-
-	/customers?offset=1&limit=10&orderby=lastName
-
-Para recuperar la misma lista en ordenación descendente, sería:
-
-	/customers?offset=1&limit=10&orderby=lastName-desc
-
-## Búsqueda
-
-Para buscar resultados no se utilizará ninguna palabra clave, sino que se utilizarán las propiedades del recurso para indicar las condiciones. Las condiciones estarán separadas por `&` o `|`, que representan un *AND* y un *OR* respectivamente.
-
-Por ejemplo, para recuperar los clientes que viven en Barcelona, sería:
-
-	/customers?city=Barcelona
-
-Para indicar múltiples valores para una propiedad, los valores se indicarán en modo de lista separada por comas.
-
-Por ejemplo, para recuperar los clientes que viven en Madrid o Barcelona, sería:
-
-	/customers?city=Barcelona,Madrid
-
-## Respuestas parciales
-
-Se habilita la posibilidad de recuperar únicamente aquella información realmente necesaria. Para ello se utilizará el parámetro `select` seguido de una lista separada por comas con la información requerida. Con esto se ahorra ancho de banda al no tener que servir toda la información de un recurso cuando únicamente nos interesa cierta información.
-
-Por ejemplo, para recuperar únicamente el nombre y los apellidos de un cliente, sería: 
-
-	/customers/1234?select=name,lastName
-
-# Operaciones
-
-<table>
-	<thead>
-		<tr>
-			<td><strong>Recurso</strong></td>
-			<td><strong>GET</strong></td>
-			<td><strong>POST</strong></td>
-			<td><strong>PUT / PATCH</strong></td>
-			<td><strong>DELETE<strong></td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>/customers</td>
-			<td>Lista de customers</td>
-			<td>Creación de un customer</td>
-			<td>Actualización de customers en bloque</td>
-			<td>Elimina todos los customers</td>
-		</tr>
-		<tr>
-			<td>/customers/1234</td>
-			<td>Recuperación de un customer</td>
-			<td>Error</td>
-			<td>Si existe, actualiza el customer. Si no, error</td>
-			<td>Elimina el customer</td>
-		</tr>
-	</tbody>
-</table>
-
-# Ejemplos
-
-## Creación de un cliente 
-
-**Petición**
-
-```http
-POST /customers
-```
-```json
-{
-	"customer" : {
-		name : "John",
-		lastName : "Doe"
-	}
-}
-```
-
-**Respuesta**
-
-```http
-200 OK
-```
-```json
-{
-	"customer" : {
-		id : 1234,
-		name : "John",
-		lastName : "Doe"
-	}
-}
-```
