@@ -8,8 +8,8 @@ Northwind.OrdersRoute = Ember.Route.extend({
     **/
     model: function () {
 
-        var controller = this.controllerFor('order');        
-
+        var controller = this.controllerFor('order');
+        
         return this.get('store').findQuery('order', { offset: controller.offset, limit: controller.limit });
 
     },   
@@ -20,6 +20,18 @@ Northwind.OrdersRoute = Ember.Route.extend({
     setupController: function (controller, model) {
         controller.set('content', model);
         controller.set('contentLoaded', true);
+    },
+
+    /**
+        renderTemplate
+    **/
+    renderTemplate: function () {
+
+        this.render('order-list', {
+            into: 'application',
+            outlet: 'content'
+        });
+
     }
 
 });

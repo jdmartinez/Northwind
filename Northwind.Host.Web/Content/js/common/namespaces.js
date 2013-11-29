@@ -5,6 +5,6 @@
 **/
 
 Northwind.Common = Ember.Namespace.create({
-    
+    Controls: Ember.Namespace.create()
 });
 

@@ -1,0 +1,60 @@
+/**	
+	@mixin	avatar	
+**/
+/**	
+	@mixin	avatar	
+**/
+table.customers-list .avatar {
+  border: 1px solid #cbd3d8;
+  color: #cbd3d8;
+  float: left;
+  height: 48px;
+  margin-right: 12px;
+  padding-top: 4px;
+  position: relative;
+  text-align: center;
+  width: 48px;
+  font-size: 36px; }
+
+table.customers-list a.title {
+  display: block;
+  font-weight: 400; }
+table.customers-list .subtitle {
+  color: #8e8e93;
+  font-size: 0.9em; }
+
+.customer-profile .customer-header {
+  font-size: 1.5em; }
+.customer-profile .customer-header .name {
+  font-size: 48px;
+  font-weight: 400;
+  margin-top: 12px;
+  margin-bottom: 0; }
+.customer-profile .customer-header .title {
+  color: #8e8e93;
+  font-size: 0.9em; }
+.customer-profile .customer-header i.avatar {
+  border: 2px solid #cbd3d8;
+  color: #cbd3d8;
+  float: left;
+  height: 96px;
+  margin-right: 12px;
+  padding-top: 4px;
+  position: relative;
+  text-align: center;
+  width: 96px;
+  font-size: 78px;
+  margin-right: 48px; }
+.customer-profile dl.profile {
+  padding: 0.5em; }
+.customer-profile dl.profile dt {
+  color: #8e8e93;
+  float: left;
+  font-weight: 300;
+  text-align: right;
+  width: 130px; }
+  .customer-profile dl.profile dt:after {
+    content: ' '; }
+.customer-profile dl.profile dd {
+  margin-left: 145px; }
+

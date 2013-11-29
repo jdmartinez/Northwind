@@ -1,0 +1,26 @@
+﻿<div class="wrapper">
+	<!-- Sidebar -->	
+	<aside id="sidebar">
+		<nav id="services-menu" class="collapse navbar-collapse" role="menu">
+		    <ul class="nav nav-stacked">
+		    {{#each api in controller.content}}
+		        <li role="presentation">{{#link-to api.path}}<i {{bind-attr class=":fa api.icon :fa-lg"}}></i><span>{{api.name}}</span>{{/link-to}}</li>
+		    {{/each}}                   
+		        <li class="divider" role="presentation"></li>
+		        <li role="presentation">                        
+		            {{#link-to 'about'}}
+		                <i class="fa fa-info-circle fa-fw"></i>
+		                <span>About</span>
+		            {{/link-to}}
+		        </li>
+		    </ul>
+		</nav>
+	</aside>
+	<!-- End sidebar -->	
+
+	<!-- Content -->	
+	<section id="content">
+		{{outlet content}}
+	</section>
+	<!-- End content -->	
+</div>

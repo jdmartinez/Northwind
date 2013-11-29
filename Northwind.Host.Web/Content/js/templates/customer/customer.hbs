@@ -1,0 +1,29 @@
+﻿<div id="customer-profile" class="col-md-8 customer-profile">
+    <div class="row customer-header">
+        <i class="fa fa-user avatar img-circle"></i>
+        <h3 class="name">{{contactName}}</h3>
+        <span class="title">{{contactTitle}}</span>
+    </div>
+
+    <div class="row">
+        <dl class="profile">
+            <dt>Company Name</dt>
+            <dd>{{companyName}}</dd>
+            <dt class="separator"></dt>
+            <dl></dl>
+            <dt>Address</dt>
+            <dd>{{address}}</dd>
+            <dd>{{city}}</dd>
+            <dd>{{postalCode}}</dd>
+            <dd>{{country}}</dd>
+            <dt class="separator"></dt>
+            <dl></dl>
+            <dt>Phone</dt>
+            <dd>{{phone}}</dd>
+        {{#if fax}}
+            <dt>Fax</dt>
+            <dd>{{fax}}</dd>
+        {{/if}}
+        </dl>        
+    </div>
+</div>

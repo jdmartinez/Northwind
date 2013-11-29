@@ -31,7 +31,7 @@ namespace Northwind.ServiceModel.Contracts
 	/// <summary>
 	/// Clase que representa una petición del lista <see cref="Customer"/>
 	/// </summary>
-	[Route("/customers", "GET")]
+	[Route("/customers", "GET", Summary = @"Customers", Notes = @"Get list of Customers")]
 	public class GetCustomers : CollectionRequest, IReturn<CustomersCollectionResponse>
 	{
 	

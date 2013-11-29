@@ -6,6 +6,8 @@ REST web service architecture is provided by [Service Stack](http://servicestack
 
 REST web client architecture is provided by [Ember.js](http://emberjs.com/ "Ember.js: A framework for creating ambitious web applications") library package, which is open source software developed by Ember.js and the original package can be found at [http://emberjs.com/](http://emberjs.com/ "Ember.js: A framework for creating ambitious web applications").
 
+HTML5 page template is based on *SB Admin* Theme by [Start Bootstrap](https://github.com/IronSummitMedia/startbootstrap/tree/master/templates/sb-admin "SB Admin Theme")
+
 This project includes database provided by [SQLite](http://www.sqlite.org/) and data from [https://code.google.com/p/northwindextended/](https://code.google.com/p/northwindextended/) and original can be found at [http://northwinddatabase.codeplex.com/](http://northwinddatabase.codeplex.com/). Database connectivity is provided by [System.Data.SQLite](http://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki) open source software found at [http://system.data.sqlite.org/](http://system.data.sqlite.org/). 
 
 This project also includes software developed by: 

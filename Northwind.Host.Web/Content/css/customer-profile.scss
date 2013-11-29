@@ -1,0 +1,53 @@
+@import 'globals';
+@import 'mixins';
+@import 'customers-list';
+
+.customer-profile {
+	.customer-header {
+		font-size: 1.5em;
+	}
+
+	.customer-header {
+		.name {
+			font-size: 48px;
+			font-weight: 400;
+			margin-top: 12px;
+			margin-bottom: 0;
+		}
+
+		.title {
+			color: $subtitle-color;
+			font-size: 0.9em;
+		}
+
+		i.avatar {
+			@include avatar(2px, $avatar-border-color, $big-avatar-width, $big-avatar-height);
+
+			font-size: 78px;
+			margin-right: 48px;			
+		}
+	}
+
+ 	dl.profile {
+
+ 		& {
+ 			padding: 0.5em;
+ 		}
+
+		dt {
+			color: $subtitle-color;
+			float: left;
+			font-weight: 300;
+			text-align: right;			
+			width: 130px;
+
+			&:after {
+				content: ' ';
+			}
+		}	
+
+		dd {
+			margin-left: 145px;
+		}
+	}
+}

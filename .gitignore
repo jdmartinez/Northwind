@@ -29,3 +29,7 @@ _ReSharper*/
 $tf*/
 *.min.js
 *.min.css
+package.json
+gruntfile.js
+bundler/
+

@@ -2,12 +2,16 @@
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic,300,300italic);
 
+$sidebar-indicator-size: 11px;
+
 body {
 	background: $primary-bg-color top left repeat-y;
 	color: $primary-color;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	min-width: 900px;
+
+	-webkit-font-smoothing: antialiased;
 }
 
 /* HEADER */
@@ -28,7 +32,7 @@ header[role="banner"] {
 	float: left;
 	height: 100%;	
 	padding-top: 20px;
-	position: absolute;
+	position: fixed;
 	width: $sidebar-width;	
 }
 
@@ -57,7 +61,7 @@ header[role="banner"] {
 			}
 
 			a.active {
-				background-color: $primary-bg-color;
+				/*background-color: $primary-bg-color;*/
 				color: $sidebar-nav-link-active-color;
 				font-weight: 700;
 			}
@@ -69,7 +73,7 @@ header[role="banner"] {
 			}
 
 			a.active:after, a.active:before {
-				left: 100%;
+				left: $sidebar-width - ($sidebar-indicator-size * 2);
 				border: solid transparent;
 				content: " ";
 				height: 0;
@@ -79,19 +83,19 @@ header[role="banner"] {
 			}
 
 			a.active:after {
-				border-color: rgba(247, 247, 247, 0);
-				border-left-color: #F7F7F7;
-				border-width: 11px;
-				top: 50%;
-				margin-top: -11px;
+				border-color: $primary-bg-color-rgb;
+				border-right-color: $primary-bg-color;
+				border-width: $sidebar-indicator-size;
+				margin-top: $sidebar-indicator-size * -1;
+				top: 50%;				
 			}
 
 			a.active:before {
-				border-color: rgba(203, 211, 216, 0);
-				border-left-color: #CBD3D8;
-				border-width: 12px;
-				top: 50%;
-				margin-top: -12px;
+				border-color: $sidebar-bg-color-rgb;
+				border-right-color: $sidebar-border-color;
+				border-width: $sidebar-indicator-size + 1;
+				margin-top: ($sidebar-indicator-size + 1) * -1;
+				top: 50%;				
 			}
 
 			i {
@@ -115,3 +119,4 @@ header[role="banner"] {
 	margin-left: $sidebar-width;
 	padding: 20px;
 }
+

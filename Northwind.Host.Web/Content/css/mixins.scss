@@ -1,0 +1,14 @@
+/**	
+	@mixin	avatar	
+**/
+@mixin avatar($borderSize, $color, $width, $height) {
+	border: $borderSize solid $color;		
+	color: $color;
+	float: left;
+	height: $height;
+	margin-right: 12px;	
+	padding-top: 4px;
+	position: relative;
+	text-align: center;
+	width: $width;		
+}

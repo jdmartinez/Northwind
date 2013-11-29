@@ -1,10 +1,12 @@
 $primary-color: #1f1f21;
 $primary-bg-color: #f7f7f7;
+$primary-bg-color-rgb: rgba(247, 247, 247, 0);
 
 $table-hover-color: #f1f1f1;
 
 $sidebar-width: 200px;
-$sidebar-bg-color: #eceff1;	
-$sidebar-border-color: #cbd3d8;
+$sidebar-bg-color: #262626;	
+$sidebar-bg-color-rgb: rgba(38, 38, 38, 0);
+$sidebar-border-color: transparent;
 $sidebar-nav-link-color: #5e6a80;
-$sidebar-nav-link-active-color: #33455a;
+$sidebar-nav-link-active-color: #2a7fdb/*#33455a*/;

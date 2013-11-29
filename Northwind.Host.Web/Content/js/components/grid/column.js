@@ -24,7 +24,7 @@ Northwind.Common.Components.Grid.Column = Ember.Object.extend({
 
         return this.get('property').capitalize();
 
-    } .property('property'),
+    }.property('property'),
 
     /**
         visible
@@ -48,6 +48,7 @@ Northwind.Common.Components.Grid.Column = Ember.Object.extend({
         viewClass
     **/
     viewClass: function () {
+
         var formatter = this.get('formatter');
 
         if (Northwind.Common.Components.Grid.CellView.detect(formatter)) {
@@ -67,6 +68,7 @@ Northwind.Common.Components.Grid.Column = Ember.Object.extend({
                 template: Ember.Handlebars.compile(template)
             });
         };
+
     }.property()
 
 });

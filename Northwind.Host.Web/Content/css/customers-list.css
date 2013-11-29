@@ -1,15 +1,17 @@
-table.customers-list .avatar, table.customers-list table.customers-list i.avatar, table.customers-list table.customers-list i.avatar {
+/**	
+	@mixin	avatar	
+**/
+table.customers-list .avatar {
   border: 1px solid #cbd3d8;
+  color: #cbd3d8;
   float: left;
   height: 48px;
   margin-right: 12px;
-  position: relative;
-  width: 48px; }
-table.customers-list i.avatar {
-  color: #cbd3d8;
-  font-size: 36px;
   padding-top: 4px;
-  text-align: center; }
+  position: relative;
+  text-align: center;
+  width: 48px;
+  font-size: 36px; }
 
 table.customers-list a.title {
   display: block;
@@ -17,3 +19,4 @@ table.customers-list a.title {
 table.customers-list .subtitle {
   color: #8e8e93;
   font-size: 0.9em; }
+

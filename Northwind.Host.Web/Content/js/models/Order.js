@@ -6,11 +6,11 @@
 **/
 
 Northwind.Order = Northwind.Model.extend({
-	employeeId: DS.attr('long'),
+	employeeId: DS.attr('number'),
 	orderDate: DS.attr('string'),
 	requiredDate: DS.attr('string'),
 	shippedDate: DS.attr('string'),
-	freight: DS.attr('decimal'),
+	freight: DS.attr('number'),
 	shipName: DS.attr('string'),
 	shipAddress: DS.attr('string'),
 	shipCity: DS.attr('string'),
@@ -18,7 +18,6 @@ Northwind.Order = Northwind.Model.extend({
 	shipPostalCode: DS.attr('string'),
 	shipCountry: DS.attr('string'),
 	
-    customer: DS.belongsTo('customer'),
+    customer: DS.belongsTo('customer')
 
-    details: DS.hasMany('orderDetail')
 });

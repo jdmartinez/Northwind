@@ -20,6 +20,18 @@ Northwind.SuppliersRoute = Ember.Route.extend({
     setupController: function (controller, model) {
         controller.set('content', model);
         controller.set('contentLoaded', true);
+    },
+
+    /**
+    renderTemplate
+    **/
+    renderTemplate: function () {
+
+        this.render('supplier-list', {
+            into: 'application',
+            outlet: 'content'
+        });
+
     }
 
 });

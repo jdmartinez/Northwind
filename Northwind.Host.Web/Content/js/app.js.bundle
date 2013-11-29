@@ -44,6 +44,7 @@ controllers/suppliers_controller.js
 
 views/text_edit_view.js
 views/customers_view.js
+views/customer/customer_view.js
 
 models/model.js
 models/customer.js

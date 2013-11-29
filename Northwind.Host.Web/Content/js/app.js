@@ -8,6 +8,192 @@ Northwind.store = DS.Store.extend();
 
 
 
+;Ember.TEMPLATES["about"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  
+
+
+  data.buffer.push("<div class=\"about\">\r\n    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. \r\n    Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. \r\n    Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per \r\n    conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.</p>\r\n\r\n    <p>Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. \r\n    Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula \r\n    lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. \r\n    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n\r\n    <p>Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. \r\n    Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. \r\n    Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus.</p>\r\n\r\n    <p>Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. \r\n    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. \r\n    Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. \r\n    Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. \r\n    Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper.</p>\r\n\r\n    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. \r\n	Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. \r\n	Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. Ut orci risus, accumsan porttitor, cursus quis, \r\n	aliquet eget, justo.</p>\r\n</div>");
+  
+});
+
+Ember.TEMPLATES["application"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, stack2, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '', stack1, stack2, hashTypes, hashContexts, options;
+  data.buffer.push("\r\n		        <li role=\"presentation\">");
+  hashTypes = {};
+  hashContexts = {};
+  options = {hash:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  stack2 = ((stack1 = helpers['link-to'] || depth0['link-to']),stack1 ? stack1.call(depth0, "api.path", options) : helperMissing.call(depth0, "link-to", "api.path", options));
+  if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("</li>\r\n		    ");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = '', stack1, hashContexts, hashTypes, options;
+  data.buffer.push("<i ");
+  hashContexts = {'class': depth0};
+  hashTypes = {'class': "STRING"};
+  options = {hash:{
+    'class': (":fa api.icon :fa-lg")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers['bind-attr'] || depth0['bind-attr']),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "bind-attr", options))));
+  data.buffer.push("></i><span>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "api.name", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</span>");
+  return buffer;
+  }
+
+function program4(depth0,data) {
+  
+  
+  data.buffer.push("\r\n		                <i class=\"fa fa-info-circle fa-fw\"></i>\r\n		                <span>About</span>\r\n		            ");
+  }
+
+  data.buffer.push("<div class=\"wrapper\">\r\n	<!-- Sidebar -->	\r\n	<aside id=\"sidebar\">\r\n		<nav id=\"services-menu\" class=\"collapse navbar-collapse\" role=\"menu\">\r\n		    <ul class=\"nav nav-stacked\">\r\n		    ");
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers.each.call(depth0, "api", "in", "controller.content", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("                   \r\n		        <li class=\"divider\" role=\"presentation\"></li>\r\n		        <li role=\"presentation\">                        \r\n		            ");
+  hashTypes = {};
+  hashContexts = {};
+  options = {hash:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  stack2 = ((stack1 = helpers['link-to'] || depth0['link-to']),stack1 ? stack1.call(depth0, "about", options) : helperMissing.call(depth0, "link-to", "about", options));
+  if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("\r\n		        </li>\r\n		    </ul>\r\n		</nav>\r\n	</aside>\r\n	<!-- End sidebar -->	\r\n\r\n	<!-- Content -->	\r\n	<section id=\"content\">\r\n		");
+  hashTypes = {};
+  hashContexts = {};
+  options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers.outlet || depth0.outlet),stack1 ? stack1.call(depth0, "content", options) : helperMissing.call(depth0, "outlet", "content", options))));
+  data.buffer.push("\r\n	</section>\r\n	<!-- End content -->	\r\n</div>");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["customer-list"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<h1>Customers</h1>\r\n");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Northwind.CustomersView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\r\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["customer/customer"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '', hashTypes, hashContexts;
+  data.buffer.push("\r\n            <dt>Fax</dt>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "fax", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n        ");
+  return buffer;
+  }
+
+  data.buffer.push("<div id=\"customer-profile\" class=\"col-md-8 customer-profile\">\r\n    <div class=\"row customer-header\">\r\n        <i class=\"fa fa-user avatar img-circle\"></i>\r\n        <h3 class=\"name\">");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "contactName", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</h3>\r\n        <span class=\"title\">");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "contactTitle", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</span>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n        <dl class=\"profile\">\r\n            <dt>Company Name</dt>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "companyName", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n            <dt class=\"separator\"></dt>\r\n            <dl></dl>\r\n            <dt>Address</dt>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "address", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "city", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "postalCode", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "country", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n            <dt class=\"separator\"></dt>\r\n            <dl></dl>\r\n            <dt>Phone</dt>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "phone", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n        ");
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers['if'].call(depth0, "fax", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n        </dl>        \r\n    </div>\r\n</div>\r\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["customers"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<h1>Customers</h1>\r\n");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Northwind.CustomersView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["order-list"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<h1>Orders</h1>\r\n");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Northwind.Common.Components.Grid.GridView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["supplier-list"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<h1>Suppliers</h1>\r\n");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Northwind.Common.Components.Grid.GridView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  return buffer;
+  
+});
 ;/**
     @extends	Ember.Namespace
     @namespace	Northwind
@@ -15,7 +201,7 @@ Northwind.store = DS.Store.extend();
 **/
 
 Northwind.Common = Ember.Namespace.create({
-    
+    Controls: Ember.Namespace.create()
 });
 
 
@@ -58,7 +244,8 @@ Northwind.Common.Uri = Ember.Object.create({
 ;/**
 **/
 Northwind.Common.Components = Ember.Namespace.create({
-    Grid: Ember.Namespace.create()
+    Grid: Ember.Namespace.create(),
+    Avatar: Ember.Namespace.create()
 });
 ;/**
 	PaginationMixin
@@ -188,7 +375,7 @@ Northwind.Common.Components.Grid.Column = Ember.Object.extend({
 
         return this.get('property').capitalize();
 
-    } .property('property'),
+    }.property('property'),
 
     /**
         visible
@@ -212,6 +399,7 @@ Northwind.Common.Components.Grid.Column = Ember.Object.extend({
         viewClass
     **/
     viewClass: function () {
+
         var formatter = this.get('formatter');
 
         if (Northwind.Common.Components.Grid.CellView.detect(formatter)) {
@@ -231,6 +419,7 @@ Northwind.Common.Components.Grid.Column = Ember.Object.extend({
                 template: Ember.Handlebars.compile(template)
             });
         };
+
     }.property()
 
 });
@@ -576,7 +765,7 @@ Northwind.Common.Components.Grid.TableView = Ember.View.extend({
 
     tagName: 'table',
 
-    classNames: ['table-bordered', 'table-striped', 'table-condensed'],
+    classNames: ['table', 'table-bordered', 'table-striped', 'table-condensed'],
 
     defaultTemplate: function () {        
 
@@ -733,6 +922,52 @@ Northwind.Common.Components.Grid.FooterView = Ember.ContainerView.extend({
     })
 
 });
+;var precompileTemplate = Ember.Handlebars.compile;
+
+/**
+	`AvatarView` 
+
+	@class 		GridView
+	@namespace 	Northwind.Common.Components.Avatar
+	@extends 	Ember.View
+
+ */
+
+Northwind.Common.Components.Avatar.AvatarView = Northwind.Common.Components.Grid.CellView.extend({
+	
+	image: null,
+
+	title: null,
+
+	subtitle: null,
+	
+	template: function () {
+
+		var image = this.get('image');
+		var title = this.get('title');
+		var subtitle = this.get('subtitle');
+		var avatarClasses = ['img-circle', 'avatar'];
+		var templateStr = '';		
+
+		if (image) {
+			templateStr += '<img src="' + image + '" class="img-circle avatar">';
+		} else {
+			templateStr += '<i class="fa fa-user ' + avatarClasses.join(' ') + '"></i>';
+		}
+	
+		if (title) {
+			templateStr += '{{#link-to \'' + this.get('controller.itemController') +'\' view.content class="title"}}{{' + title + '}}{{/link-to}}';
+		}
+
+		if (subtitle) {
+			templateStr += '<span class="subtitle">{{' + subtitle + '}}</span>';
+		}
+
+		return precompileTemplate(templateStr);
+
+	}.property('image', 'title', 'subtitle')
+	
+});
 ;/**
     `ApplicationAdapter` 
 
@@ -752,54 +987,27 @@ Northwind.ApplicationAdapter = DS.RESTAdapter.extend({
     /**
     	serializer
     **/
-    serializer: Northwind.ApplicationSerializer/*,
-
-    sendRecord: function (store, type, record, options) {
-
-    	var data = {};
-    	var serializer;
-		var operation = (options.includeId ? "POST" : "PUT");
-
-    	serializer = store.serializerFor(type.typeKey);
-    	serializer.serializeIntoHash(data, type, record, options);
-
-    	return this.ajax(this.buildURL(type.typeKey, record.id), operation, { 
-    		data: data[type.typeKey] 
-    	});
-
-    },
-
-    createRecord: function (store, type, record) {
-
-    	return this.sendRecord(store, type, record, {
-    		includeId: true
-    	});
-
-    },
-    
-    updateRecord: function (store, type, record) {
-
-    	return this.sendRecord(store, type, record, {
-    		includeId: false
-    	});
-
-    }
-    */
+    serializer: Northwind.ApplicationSerializer
 
 
 });
 ;/**
+    `ApplicationSerializer` 
 
-Serializador personalizado
+    @class      ApplicationSerializer
+    @namespace  Northwind
+    @extends    DS.RESTSerializer
 
-El JSON de Northwind no sigue el estándar de Ember
-
-**/
+*/
 
 Northwind.ApplicationSerializer = DS.RESTSerializer.extend({
 
-    // Reestructuramos el nivel superior para organizarlo de la manera que espera Ember. 
-    // Crearemos un nuevo objeto payload cuyo nivel superior sea el nombre del modelo "primaryType" en plural
+    /**
+        `extractArray`
+
+        Eliminamos del JSON aquellos elementos que no son compatibles con un JSON de Ember.
+        En este caso, `count` no es necesario ya que tenemos el mismo valor en los metadatos
+    **/
     extractArray: function (store, primaryType, payload) {
         
         delete payload.count;
@@ -810,7 +1018,12 @@ Northwind.ApplicationSerializer = DS.RESTSerializer.extend({
 
     },    
 
-    // Extracción de los metadatos de la respuesta    
+    /**
+        `extractMeta`
+
+        Extraemos los metadatos. Ember busca los metadatos en un objeto `meta`, pero Northwind
+        los envía en el objeto `metadata`
+    **/
     extractMeta: function (store, type, payload) {
 
         if (payload && payload.metadata) {
@@ -820,6 +1033,12 @@ Northwind.ApplicationSerializer = DS.RESTSerializer.extend({
 
     },
 
+    /**
+        `serializeIntoHash`
+
+        El JSON que necesita Northwind en las operaciones POST/PUT no tiene
+        elemento raíz, así que sobreescribimos este método para eliminarlo
+    **/
     serializeIntoHash: function(hash, type, record, options) {
 
         Ember.merge(hash, this.serialize(record, options));
@@ -830,32 +1049,106 @@ Northwind.ApplicationSerializer = DS.RESTSerializer.extend({
 
 
 ;/**
+	Router mapping
 **/
 Northwind.Router.map(function () {
+
+	// Customers
     this.resource('customers', function () {
         this.resource('customer', { path: ':customer_id' }, function () {
         	this.route('orders');
         });
     });
+
+    // Orders
+    this.resource('orders', function () {
+    	this.resource('order', { path: ':order_id' });
+    });
+
+    // Suppliers
+    this.resource('suppliers', function () {
+    	this.resource('supplier', { path: ':supplier_id' });
+    });
+
+    // About
     this.resource('about');
+
 });
 
 /**
-**/
-Northwind.Router.reopen({
-    location: 'history'
+    `ApplicationRoute` 
+
+    @class 		ApplicationRoute
+    @namespace 	Northwind
+    @extends 	Ember.Route
+
+*/
+Northwind.ApplicationRoute = Ember.Route.extend({
+
+	/**
+		model
+	**/    
+	model: function () {
+		
+		return Ember.$.getJSON('/resources').then(function (data) {
+			var apis = data.apis;
+			var resources = [];
+
+			apis.forEach(function (api) {
+				var path = api.path.substring(api.path.lastIndexOf('/') + 1);
+
+				var res = Ember.Object.create({
+					name: path.camelize(),
+					icon: '',
+					path: path,
+					description: api.description
+				});
+
+				var icon = '';
+
+				switch (res.name) {
+					case 'customers':
+					    icon = 'fa-group';
+						break;
+					case 'orders':
+						icon = 'fa-folder';
+						break;
+					case 'suppliers':
+						icon = 'fa-truck';
+						break;
+				}
+
+				res.set('icon', icon);
+
+				resources.pushObject(res);
+			});
+
+			return resources;
+		});
+
+	},
+
+	/**
+		setupController
+	**/
+	setupController: function (controller, model) {
+
+		controller.set('content', model);
+
+	}	
+
 });
 ;/**
     CustomersRoute
 **/
-Northwind.CustomersRoute = Ember.Route.extend({    
+Northwind.CustomersRoute = Ember.Route.extend({   
 
     /**
         model
     **/
     model: function () {
 
-        var controller = this.controllerFor('customer');        
+        var controller = this.controllerFor('customer');
 
         return this.get('store').findQuery('customer', { offset: controller.offset, limit: controller.limit });
 
@@ -867,12 +1160,142 @@ Northwind.CustomersRoute = Ember.Route.extend({
     setupController: function (controller, model) {
         controller.set('content', model);
         controller.set('contentLoaded', true);
+    },
+
+    /**
+        renderTemplate
+    **/
+    renderTemplate: function () {
+
+        this.render('customer-list', {
+            into: 'application',
+            outlet: 'content'
+        });
+
     }
 
 });
-;Northwind.CustomerRoute = Ember.Route.extend({
+;/**
+    CustomersRoute
+**/
+Northwind.CustomerRoute = Ember.Route.extend({
+
+	/**
+		model
+	**/
     model: function (params) {
+
         return this.get('store').find('customer', params.customer_id);
+
+    },
+
+    /**
+    renderTemplate
+    **/
+    renderTemplate: function () {
+
+        this.render('customer', {
+            into: 'application',
+            outlet: 'content'
+        });
+
+    }    
+
+});
+;/**
+    OrdersRoute
+**/
+Northwind.OrdersRoute = Ember.Route.extend({    
+
+    /**
+        model
+    **/
+    model: function () {
+
+        var controller = this.controllerFor('order');
+        
+        return this.get('store').findQuery('order', { offset: controller.offset, limit: controller.limit });
+
+    },   
+
+    /**
+        setupController
+    **/
+    setupController: function (controller, model) {
+        controller.set('content', model);
+        controller.set('contentLoaded', true);
+    },
+
+    /**
+        renderTemplate
+    **/
+    renderTemplate: function () {
+
+        this.render('order-list', {
+            into: 'application',
+            outlet: 'content'
+        });
+
+    }
+
+});
+;/**
+	OrderRoute
+**/
+Northwind.OrderRoute = Ember.Route.extend({
+
+    model: function (params) {
+
+        return this.get('store').find('order', params.order_id);
+
+    }
+});
+;/**
+    SuppliersRoute
+**/
+Northwind.SuppliersRoute = Ember.Route.extend({    
+
+    /**
+        model
+    **/
+    model: function () {
+
+        var controller = this.controllerFor('supplier');
+
+        return this.get('store').findQuery('supplier', { offset: controller.offset, limit: controller.limit });
+
+    },   
+
+    /**
+        setupController
+    **/
+    setupController: function (controller, model) {
+        controller.set('content', model);
+        controller.set('contentLoaded', true);
+    },
+
+    /**
+    renderTemplate
+    **/
+    renderTemplate: function () {
+
+        this.render('supplier-list', {
+            into: 'application',
+            outlet: 'content'
+        });
+
+    }
+
+});
+;/**
+	OrderRoute
+**/
+Northwind.SupplierRoute = Ember.Route.extend({
+
+    model: function (params) {
+
+        return this.get('store').find('supplier', params.supplier_id);
+
     }
 });
 ;/**
@@ -921,7 +1344,6 @@ Northwind.ObjectController = Ember.ObjectController.extend({
 			{
 				this.send('save');
 			} else {
-				console.log('NOT isSaveable');
 				this.send('remove');
 			}
 
@@ -1058,7 +1480,77 @@ Northwind.CustomersController = Northwind.ArrayController.extend({
 		columns
 	**/
     columns: [
-		Northwind.Common.Components.Grid.column('id', { formatter: '{{#link-to \'customer\' view.content}}{{view.content.id}}{{/link-to}}' }),
+		Northwind.Common.Components.Grid.column('contactName', { 
+			header: 'Contact Name',
+			formatter: Northwind.Common.Components.Avatar.AvatarView.extend({
+				title: 'view.content.contactName',
+				subtitle: 'view.content.contactTitle'
+			})
+		}),
+		Northwind.Common.Components.Grid.column('companyName', { header: 'Company Name' }),
+		Northwind.Common.Components.Grid.column('contactTitle', { header: 'Contact Title' })
+	]	
+
+});
+;/**
+    `OrderController` 
+
+    @class 		OrderController
+    @namespace 	Northwind
+    @extends 	Northwind.ObjectController
+
+*/
+Northwind.OrderController = Northwind.ObjectController.extend({
+		
+
+});
+;/**
+    @class      OrdersController
+    @namespace  Northwind
+    @extends    Northwind.ArrayController
+**/
+Northwind.OrdersController = Northwind.ArrayController.extend({		
+
+	itemController: 'order',
+
+	/**
+		columns
+	**/
+    columns: [
+		Northwind.Common.Components.Grid.column('id', { formatter: '{{#link-to \'order\' view.content}}{{view.content.id}}{{/link-to}}' }),
+		Northwind.Common.Components.Grid.column('employeeId'),
+		Northwind.Common.Components.Grid.column('shipName'),
+		Northwind.Common.Components.Grid.column('shipAddress'),
+		Northwind.Common.Components.Grid.column('shipCity')
+	]	
+
+});
+;/**
+    `SupplierController` 
+
+    @class 		SupplierController
+    @namespace 	Northwind
+    @extends 	Northwind.ObjectController
+
+*/
+Northwind.SupplierController = Northwind.ObjectController.extend({
+		
+
+});
+;/**
+    @class      OrdersController
+    @namespace  Northwind
+    @extends    Northwind.ArrayController
+**/
+Northwind.SuppliersController = Northwind.ArrayController.extend({		
+
+	itemController: 'supplier',
+
+	/**
+		columns
+	**/
+    columns: [
+		Northwind.Common.Components.Grid.column('id', { formatter: '{{#link-to \'supplier\' view.content}}{{view.content.id}}{{/link-to}}' }),
 		Northwind.Common.Components.Grid.column('contactName'),
 		Northwind.Common.Components.Grid.column('companyName'),
 		Northwind.Common.Components.Grid.column('contactTitle')
@@ -1086,18 +1578,49 @@ Northwind.TextEditView = Ember.TextField.extend({
 Ember.Handlebars.helper('text-edit', Northwind.TextEditView);
 
 ;/**
-    `CustomersView` 
+`CustomersView` 
 
-    @class 		CustomersView
-    @namespace 	Northwind
-    @extends 	Northwind.Common.Components.Grid.GridView
+@class 		CustomersView
+@namespace 	Northwind
+@extends 	Northwind.Common.Components.Grid.TableView
 
 */
-/*
-Northwind.CustomersView = Northwind.Common.Components.Grid.GridView.extend({
-    templateName: 'customers'
+Northwind.CustomersView = Northwind.Common.Components.Grid.TableView.extend({
+
+    /**
+    Cambiamos las clases para la tabla
+    **/
+    init: function () {
+
+        this._super();
+
+        var classNames = ['table', 'table-hover', 'customers-list'];
+
+        this.set('classNames', classNames);
+
+    }
+
 });
-*/
+
+
+;/** 
+	Vista que se encarga de renderizar los datos de un customer
+
+	@class		CustomerView
+	@extends	Ember.View
+	@namespace	Northwind	
+**/
+Northwind.CustomerView = Ember.View.extend({
+
+	templateName: 'customer/customer',
+
+	customerBinding: 'controller.content',
+
+	updateTitle: function () {
+
+	}.observes('customer.loaded', 'customer.id')	
+
+});
 ;/**
 	Clase base para todos los modelos definidos en Northwind
 
@@ -1172,11 +1695,11 @@ Northwind.Customer.reopen({
 **/
 
 Northwind.Order = Northwind.Model.extend({
-	employeeId: DS.attr('long'),
+	employeeId: DS.attr('number'),
 	orderDate: DS.attr('string'),
 	requiredDate: DS.attr('string'),
 	shippedDate: DS.attr('string'),
-	freight: DS.attr('decimal'),
+	freight: DS.attr('number'),
 	shipName: DS.attr('string'),
 	shipAddress: DS.attr('string'),
 	shipCity: DS.attr('string'),
@@ -1184,9 +1707,8 @@ Northwind.Order = Northwind.Model.extend({
 	shipPostalCode: DS.attr('string'),
 	shipCountry: DS.attr('string'),
 	
-    customer: DS.belongsTo('customer'),
+    customer: DS.belongsTo('customer')
 
-    details: DS.hasMany('orderDetail')
 });
 
 ;/**
@@ -1214,7 +1736,6 @@ Northwind.OrderDetail = Northwind.Model.extend({
 **/
 
 Northwind.Supplier = DS.Model.extend({
-//	id: DS.attr('long'),
 	companyName: DS.attr('string'),
 	contactName: DS.attr('string'),
 	contactTitle: DS.attr('string'),

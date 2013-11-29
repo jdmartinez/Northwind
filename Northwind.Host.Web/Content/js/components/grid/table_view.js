@@ -11,7 +11,7 @@ Northwind.Common.Components.Grid.TableView = Ember.View.extend({
 
     tagName: 'table',
 
-    classNames: ['table-bordered', 'table-striped', 'table-condensed'],
+    classNames: ['table', 'table-bordered', 'table-striped', 'table-condensed'],
 
     defaultTemplate: function () {        
 

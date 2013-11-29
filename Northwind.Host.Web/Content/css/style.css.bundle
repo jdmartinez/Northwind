@@ -1,5 +1,7 @@
 ﻿globals.scss
+mixins.scss
 overrides.scss
 layout.scss
 customers-list.scss
+customer-profile.scss
 

@@ -1,14 +1,14 @@
 ﻿/**
     CustomersRoute
 **/
-Northwind.CustomersRoute = Ember.Route.extend({    
+Northwind.CustomersRoute = Ember.Route.extend({   
 
     /**
         model
     **/
     model: function () {
 
-        var controller = this.controllerFor('customer');        
+        var controller = this.controllerFor('customer');
 
         return this.get('store').findQuery('customer', { offset: controller.offset, limit: controller.limit });
 
@@ -20,6 +20,18 @@ Northwind.CustomersRoute = Ember.Route.extend({
     setupController: function (controller, model) {
         controller.set('content', model);
         controller.set('contentLoaded', true);
+    },
+
+    /**
+        renderTemplate
+    **/
+    renderTemplate: function () {
+
+        this.render('customer-list', {
+            into: 'application',
+            outlet: 'content'
+        });
+
     }
 
 });

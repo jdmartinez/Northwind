@@ -6,7 +6,6 @@
 **/
 
 Northwind.Supplier = DS.Model.extend({
-//	id: DS.attr('long'),
 	companyName: DS.attr('string'),
 	contactName: DS.attr('string'),
 	contactTitle: DS.attr('string'),
