@@ -35,14 +35,16 @@ using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using ManHouse.ServiceBase;
+using ManHouse.ServiceBase.Query;
 using ManHouse.ServiceInterface.Services;
 using ManHouse.ServiceBase.Meta;
 using ManHouse.ServiceBase.Relations;
 using ManHouse.ServiceModel.Dto;
+using ManHouse.Data.Repositories;
 
 //using ServiceStack.Razor;
 
-namespace ManHouse.Host
+namespace ManHouse.Host.Web
 {
     /// <summary>
     /// Clase que representa la aplicación Web
@@ -72,20 +74,35 @@ namespace ManHouse.Host
             JsConfig<MetadataUriType>.SerializeFn = text => text.ToString().ToCamelCase();
             JsConfig<RelationType>.SerializeFn = text => text.ToString().ToCamelCase();
 
-            // ServiceStack
-            SetConfig(new EndpointHostConfig { DebugMode = true });
-
-            // Rutas
-            Routes
-                .Add<CollectionRequest<Customer>>("/customers", "GET, PUT")
-                .Add<SingleRequest<Customer>>("/customers/{Id}", "GET, DELETE, POST");
+			// ServiceStack
+			SetConfig(new EndpointHostConfig
+			{
+				DebugMode = true
+			});
 
             // Plugins
-            var queryPlugin = new QueryLang
+            var queryPlugin = new QueryLanguageFeature();
+            //queryPlugin.reg
+
+            // Dependencias
+            container.RegisterAs<MiembroEntityRepository, IMiembroEntityRepository>();
         }
 
         #endregion
 
         #endregion
+
+        #region Miembros estáticos. Método de inicio del servicio Web
+
+        #region Start. Desencadenador del servicio. Inicia la escucha de peticiones
+        public static void Start()
+        {
+            new AppHost().Init();
+        }
+        #endregion
+
+        #endregion
     }
+
+
 }

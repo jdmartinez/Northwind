@@ -73,7 +73,9 @@
     <Compile Include="Model\MiembrosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadExtensions.cs" />
+    <Compile Include="Repositories\IMiembroEntityRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\MiembroEntityRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>
   <ItemGroup>

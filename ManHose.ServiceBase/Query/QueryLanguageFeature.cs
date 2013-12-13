@@ -21,10 +21,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using ServiceStack.WebHost.Endpoints;
 using ServiceStack.ServiceHost;
 using ManHouse.Common;
+using ManHouse.ServiceBase.Query.Parser;
 
 namespace ManHouse.ServiceBase.Query
 {
@@ -73,7 +75,7 @@ namespace ManHouse.ServiceBase.Query
             Verify.ArgumentNotNull(appHost);
 
             _appHost = appHost;
-            //_appHost.RequestFilters.Add(
+            _appHost.RequestFilters.Add(ProcessRequest);
         }
 
         #endregion
@@ -93,9 +95,11 @@ namespace ManHouse.ServiceBase.Query
             Verify.ArgumentNotNull(res);
             Verify.ArgumentNotNull(dto);
 
+            if (req.HttpMethod != "GET") return;
+
             if (dto is ISearchable)
             {
-                //SetQ
+                SetQueryExpression(dto as ISearchable, req.QueryString);
             }
         }
 
@@ -116,10 +120,20 @@ namespace ManHouse.ServiceBase.Query
 
             if (_associations.TryGetValue(typeOfDto.First(), out associatedType))
             {
-                var parserType = typeof(Query
+                var parserType = typeof(QueryParametersParser<>).MakeGenericType(associatedType);
+                var parser = parserType.CreateInstance();
+
+                var queryExpr = Expression.Call(
+                    Expression.Constant(parser, parserType),
+                    "Parse",
+                    null,
+                    Expression.Constant(queryString));
+
+                var lambda = Expression.Lambda<Func<IQueryExpression>>(queryExpr);
+
+                dto.GetType().GetProperty("Query").SetValue(dto, lambda.Compile()(), null);
             }
         }
-
         #endregion
 
         #endregion
