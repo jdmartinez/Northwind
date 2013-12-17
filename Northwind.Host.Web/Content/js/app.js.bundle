@@ -4,6 +4,8 @@ templates.js
 common/namespaces.js
 common/uri.js
 
+mixins/searching-support.js
+
 components/main.js
 components/grid/pagination_mixin.js
 components/grid/column.js
@@ -18,8 +20,8 @@ components/grid/body_view.js
 components/grid/row_view.js
 components/grid/cell_view.js
 components/grid/footer_view.js
-
 components/avatar/avatar_view.js
+components/infinite-table-view.js
 
 adapters/application_adapter.js
 
@@ -43,7 +45,6 @@ controllers/supplier_controller.js
 controllers/suppliers_controller.js
 
 views/text_edit_view.js
-views/customers_view.js
 views/customer/customer_view.js
 
 models/model.js

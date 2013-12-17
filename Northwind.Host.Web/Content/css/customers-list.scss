@@ -8,22 +8,17 @@ $big-avatar-width: 96px;
 $big-avatar-height: 96px;
 $subtitle-color: #8e8e93;
 
-table.customers-list {
+.customers-list {
 	.avatar {
 		@include avatar(1px, $avatar-border-color, $avatar-width, $avatar-height);
 
 		font-size: 36px;
 	}	
+
 }
 
-table.customers-list {
-	a.title {
-		display: block;
-		font-weight: 400;
-	}
-
-	.subtitle {
-		color: $subtitle-color;
-		font-size: 0.9em;
+.list-group-item {
+	.avatar {
+		margin-top: -3px;
 	}
 }

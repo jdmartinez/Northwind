@@ -3,7 +3,7 @@
     @namespace  Northwind
     @extends    Northwind.Common.Components.Grid.GridController
 **/
-Northwind.ArrayController = Northwind.Common.Components.Grid.GridController.extend({
+Northwind.ArrayController = Ember.ArrayController.extend(Northwind.Common.Components.Grid.Pagination, {
     
     contentLoaded: false,
 

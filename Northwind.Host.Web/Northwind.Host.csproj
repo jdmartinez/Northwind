@@ -157,6 +157,7 @@
     <Content Include="Content\js\application.js" />
     <Content Include="Content\js\common\namespaces.js" />
     <Content Include="Content\js\common\uri.js" />
+    <Content Include="Content\js\components\infinite-table-view.js" />
     <Content Include="Content\js\components\main.js" />
     <Content Include="Content\js\components\avatar\avatar_view.js" />
     <Content Include="Content\js\components\grid\column.js" />
@@ -184,6 +185,7 @@
     <Content Include="Content\js\libs\ember-list-view.js" />
     <Content Include="Content\js\libs\ember.js" />
     <Content Include="Content\js\libs\handlebars-1.0.0.js" />
+    <Content Include="Content\js\mixins\searching-support.js" />
     <Content Include="Content\js\models\customer.js" />
     <Content Include="Content\js\models\model.js" />
     <Content Include="Content\js\models\order.js" />
@@ -200,13 +202,17 @@
     <Content Include="Content\js\templates.js" />
     <None Include="Content\css\customer-profile.scss" />
     <None Include="Content\css\mixins.scss" />
+    <None Include="Content\js\templates\components\infinite-table-view-item.hbs" />
+    <None Include="Content\js\templates\components\infinite-table-view-items.hbs" />
+    <None Include="Content\js\templates\components\infinite-table-view-header.hbs" />
     <None Include="Content\js\templates\customer-list.hbs" />
+    <None Include="Content\js\templates\customers.hbs" />
     <None Include="Content\js\templates\customer\customer.hbs" />
     <None Include="Content\js\templates\order-list.hbs" />
     <None Include="Content\js\templates\supplier-list.hbs" />
     <None Include="Content\js\templates\about.hbs" />
     <None Include="Content\js\templates\application.hbs" />
-    <Content Include="Content\js\views\customers_view.js" />
+    <None Include="Content\js\templates\components\infinite-table-view.hbs" />
     <Content Include="Content\js\views\customer\customer_view.js" />
     <Content Include="Content\js\views\text_edit_view.js" />
     <Content Include="Global.asax" />
@@ -285,7 +291,6 @@
   <ItemGroup>
     <Folder Include="Content\img\" />
     <Folder Include="Content\js\helpers\" />
-    <Folder Include="Content\js\mixins\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>

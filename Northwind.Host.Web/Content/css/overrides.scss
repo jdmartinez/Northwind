@@ -4,3 +4,7 @@
 .table-hover > tbody > tr:hover > th {
 	background-color: $table-hover-color;
 }
+
+.list-group-item {
+	background-color: inherit;
+}

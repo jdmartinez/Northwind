@@ -3,23 +3,17 @@
     @namespace  Northwind
     @extends    Northwind.ArrayController
 **/
-Northwind.CustomersController = Northwind.ArrayController.extend({		
+Northwind.CustomersController = Northwind.ArrayController.extend(Northwind.SearchingSupport, {		
+
+	limit: 50,
 
 	itemController: 'customer',
 
-	/**
-		columns
-	**/
-    columns: [
-		Northwind.Common.Components.Grid.column('contactName', { 
-			header: 'Contact Name',
-			formatter: Northwind.Common.Components.Avatar.AvatarView.extend({
-				title: 'view.content.contactName',
-				subtitle: 'view.content.contactTitle'
-			})
-		}),
-		Northwind.Common.Components.Grid.column('companyName', { header: 'Company Name' }),
-		Northwind.Common.Components.Grid.column('contactTitle', { header: 'Contact Title' })
-	]	
+	searchProperties: Ember.A(['contactName', 'contactTitle']),
+
+	filterableContentBinding: 'paginableContent',
+
+  	itemsBinding: 'filteredContent'
 
 });
+

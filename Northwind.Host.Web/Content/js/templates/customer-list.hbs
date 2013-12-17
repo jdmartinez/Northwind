@@ -1,2 +1,24 @@
-﻿<h1>Customers</h1>
-{{view Northwind.CustomersView}}
+﻿{{!view Northwind.CustomersView}}
+{{#infinite-table-view controllerBinding="controller" class="customers-list"}}
+  {{#infinite-table-view-header}}
+    <div class="form-group input-group">      
+      {{view Ember.TextField placeholder="Search" class="form-control" valueBinding="controller.searchText"}}
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-search"></i>
+      </span>
+    </div>
+  {{/infinite-table-view-header}}
+            
+  {{#infinite-table-view-items}}
+    {{#each item in items}}
+      {{#infinite-table-view-item item=item}}
+        {{#linkTo 'customer' item}}
+          <i class="fa fa-user img-circle avatar"></i>
+          <h4 class="list-group-item-heading">{{item.contactName}}</h4>
+          <div class="list-group-item-text">{{item.contactTitle}}</div>
+        {{/linkTo}}
+      {{/infinite-table-view-item}}
+    {{/each}}
+  {{/infinite-table-view-items}}
+  
+{{/infinite-table-view}}      

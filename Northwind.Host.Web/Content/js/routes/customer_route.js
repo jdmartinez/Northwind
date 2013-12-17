@@ -18,8 +18,8 @@ Northwind.CustomerRoute = Ember.Route.extend({
     renderTemplate: function () {
 
         this.render('customer', {
-            into: 'application',
-            outlet: 'content'
+            into: 'customers',
+            outlet: 'customerDetail'
         });
 
     }    

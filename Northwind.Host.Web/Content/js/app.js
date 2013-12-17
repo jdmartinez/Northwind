@@ -80,17 +80,158 @@ function program4(depth0,data) {
   
 });
 
+Ember.TEMPLATES["components/infinite-table-view-header"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  
+});
+
+Ember.TEMPLATES["components/infinite-table-view-item"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  
+});
+
+Ember.TEMPLATES["components/infinite-table-view-items"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  
+});
+
+Ember.TEMPLATES["components/infinite-table-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  
+});
+
 Ember.TEMPLATES["customer-list"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, stack2, hashContexts, hashTypes, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing, functionType="function", blockHelperMissing=helpers.blockHelperMissing;
 
-
-  data.buffer.push("<h1>Customers</h1>\r\n");
+function program1(depth0,data) {
+  
+  var buffer = '', stack1, options, hashTypes, hashContexts;
+  data.buffer.push("\r\n  ");
+  options = {hash:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  if (stack1 = helpers['infinite-table-view-header']) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0['infinite-table-view-header']; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   hashTypes = {};
   hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Northwind.CustomersView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  if (!helpers['infinite-table-view-header']) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n            \r\n  ");
+  options = {hash:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  if (stack1 = helpers['infinite-table-view-items']) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0['infinite-table-view-items']; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  hashTypes = {};
+  hashContexts = {};
+  if (!helpers['infinite-table-view-items']) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n  \r\n");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = '', hashContexts, hashTypes;
+  data.buffer.push("\r\n    <div class=\"form-group input-group\">      \r\n      ");
+  hashContexts = {'placeholder': depth0,'class': depth0,'valueBinding': depth0};
+  hashTypes = {'placeholder': "STRING",'class': "STRING",'valueBinding': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
+    'placeholder': ("Search"),
+    'class': ("form-control"),
+    'valueBinding': ("controller.searchText")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\r\n      <span class=\"input-group-addon\">\r\n        <i class=\"glyphicon glyphicon-search\"></i>\r\n      </span>\r\n    </div>\r\n  ");
+  return buffer;
+  }
+
+function program4(depth0,data) {
+  
+  var buffer = '', stack1, hashTypes, hashContexts;
+  data.buffer.push("\r\n    ");
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers.each.call(depth0, "item", "in", "items", {hash:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n  ");
+  return buffer;
+  }
+function program5(depth0,data) {
+  
+  var buffer = '', stack1, stack2, hashContexts, hashTypes, options;
+  data.buffer.push("\r\n      ");
+  hashContexts = {'item': depth0};
+  hashTypes = {'item': "ID"};
+  options = {hash:{
+    'item': ("item")
+  },inverse:self.noop,fn:self.program(6, program6, data),contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  stack2 = ((stack1 = helpers['infinite-table-view-item'] || depth0['infinite-table-view-item']),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "infinite-table-view-item", options));
+  if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("\r\n    ");
+  return buffer;
+  }
+function program6(depth0,data) {
+  
+  var buffer = '', stack1, stack2, hashTypes, hashContexts, options;
+  data.buffer.push("\r\n        ");
+  hashTypes = {};
+  hashContexts = {};
+  options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0,depth0],types:["STRING","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  stack2 = ((stack1 = helpers.linkTo || depth0.linkTo),stack1 ? stack1.call(depth0, "customer", "item", options) : helperMissing.call(depth0, "linkTo", "customer", "item", options));
+  if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("\r\n      ");
+  return buffer;
+  }
+function program7(depth0,data) {
+  
+  var buffer = '', hashTypes, hashContexts;
+  data.buffer.push("\r\n          <i class=\"fa fa-user img-circle avatar\"></i>\r\n          <h4 class=\"list-group-item-heading\">");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "item.contactName", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</h4>\r\n          <div class=\"list-group-item-text\">");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "item.contactTitle", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</div>\r\n        ");
+  return buffer;
+  }
+
   data.buffer.push("\r\n");
+  hashContexts = {'controllerBinding': depth0,'class': depth0};
+  hashTypes = {'controllerBinding': "STRING",'class': "STRING"};
+  options = {hash:{
+    'controllerBinding': ("controller"),
+    'class': ("customers-list")
+  },inverse:self.noop,fn:self.program(1, program1, data),contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  stack2 = ((stack1 = helpers['infinite-table-view'] || depth0['infinite-table-view']),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "infinite-table-view", options));
+  if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("      ");
   return buffer;
   
 });
@@ -111,7 +252,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div id=\"customer-profile\" class=\"col-md-8 customer-profile\">\r\n    <div class=\"row customer-header\">\r\n        <i class=\"fa fa-user avatar img-circle\"></i>\r\n        <h3 class=\"name\">");
+  data.buffer.push("<div id=\"customer-profile\" class=\"customer-profile\">\r\n    <div class=\"row customer-header\">\r\n        <i class=\"fa fa-user avatar img-circle\"></i>\r\n        <h3 class=\"name\">");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "contactName", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -156,13 +297,20 @@ function program1(depth0,data) {
 Ember.TEMPLATES["customers"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("<h1>Customers</h1>\r\n");
+  data.buffer.push("<div class=\"leftContent col-md-5\">\r\n	");
   hashTypes = {};
   hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Northwind.CustomersView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers.outlet || depth0.outlet),stack1 ? stack1.call(depth0, "customerList", options) : helperMissing.call(depth0, "outlet", "customerList", options))));
+  data.buffer.push("\r\n</div>\r\n<div class=\"rightContent col-md-7\">\r\n	");
+  hashTypes = {};
+  hashContexts = {};
+  options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers.outlet || depth0.outlet),stack1 ? stack1.call(depth0, "customerDetail", options) : helperMissing.call(depth0, "outlet", "customerDetail", options))));
+  data.buffer.push("\r\n</div>");
   return buffer;
   
 });
@@ -241,6 +389,43 @@ Northwind.Common.Uri = Ember.Object.create({
 	}
 
 });
+;/**
+**/
+Northwind.SearchingSupport = Ember.Mixin.create({
+  
+  searchText: '', 
+  
+  searchProperties: Ember.A(),
+  
+  filterableContentBinding: 'content',
+  
+  filteredContent: function () {    
+
+    var searchText = this.get('searchText');
+    var sProps = this.get('searchProperties');
+    var regExp = new RegExp(searchText, 'gi');
+    
+    if (!searchText) return this;
+    
+    return this.get('filterableContent').filter(function(item) {
+
+      //var props = Ember.Object.create(item).getProperties(sProps);      
+      var props = item.getProperties(sProps);      
+
+      for (var p in props) {
+        if ( props[p] && props[p].toString().match(regExp)) {
+          return true;
+        }
+      }
+      
+      return false;
+
+    });
+
+  }.property('searchText', 'searchProperties', 'filterableContent')
+  
+});
+
 ;/**
 **/
 Northwind.Common.Components = Ember.Namespace.create({
@@ -968,6 +1153,144 @@ Northwind.Common.Components.Avatar.AvatarView = Northwind.Common.Components.Grid
 	}.property('image', 'title', 'subtitle')
 	
 });
+;/** 
+  `InfiniteTableViewComponent`
+  
+  Lista de elementos que se asemejan a UITableView de iOS.
+  La lista puede tener una cabecera y un pie que realizan acciones sobre la misma.
+  
+  El modo mas facil de crear un `InfiniteTableViewComponent` es mediante una plantilla,
+  como por ejemplo:
+  
+  ```html
+  {{infinite-table-view items=model}}
+  ```
+  
+  Tambien se puede decidir que elementos mostrar:
+  
+  ```html
+  {{#infinite-table-view items=model}}
+    {{infinite-table-view-header}}    
+    
+    {{#infinite-table-view-items}}          
+      {{#each item in items}}
+        {{infinite-table-view-item}}
+      {{/each}}
+    {{/infinite-table-view-items}}
+    
+    {{infinite-table-view-footer}}
+  {{/infinite-table-view items=model}}
+  ```    
+  
+  @class        InfiniteTableViewComponent
+  @namespace    Northwind
+  @extends      Ember.Component    
+  
+**/
+
+Northwind.InfiniteTableViewComponent = Ember.Component.extend({
+  
+  tagName: 'section',
+  
+  classNames: ['ui-table-view'],
+    
+  itemsBinding: 'filteredContent'
+  
+});
+
+/** 
+  `InfiniteTableViewItemsComponent`
+  
+  Lista de elementos que se asemejan a UITableView de iOS.
+  
+  @class        InfiniteTableViewItemsComponent
+  @namespace    Northwind
+  @extends      Ember.Component
+  
+**/
+Northwind.InfiniteTableViewItemsComponent = Ember.Component.extend({
+  
+  tagName: 'ul',
+  
+  classNames: ['list-group'],
+  
+  itemViewClass: Northwind.InfiniteTableViewComponent.extend()
+  
+});
+
+/** 
+  `InfiniteTableViewItemComponent`
+  
+  Elemento de un `InfiniteTableViewItemsComponent`
+  
+  @class        InfiniteTableViewItemComponent
+  @namespace    Northwind
+  @extends      Ember.Component
+  
+**/
+Northwind.InfiniteTableViewItemComponent = Ember.Component.extend({
+  
+  tagName: 'li',
+  
+  classNames: ['list-group-item'],
+  
+  classNameBindings: ['isSelected:active'],
+  
+  isSelected: false,
+      
+  click: function() {    
+    
+    this.send('selectItem');
+    
+  },
+  
+  actions: {
+    
+    selectItem: function () {      
+      
+      this.toggleProperty('isSelected');                  
+      
+    }
+    
+  }
+  
+});
+
+/** 
+  `InfiniteTableViewHeaderComponent`
+  
+  Cabecera de una `InfiniteTableViewComponent`
+  
+  @class        InfiniteTableViewHeaderComponent
+  @namespace    Northwind
+  @extends      Ember.Component
+  
+**/
+Northwind.InfiniteTableViewHeaderComponent = Ember.Component.extend({
+  
+  tagName: 'header',
+  
+  classNames: ['list-group-header']
+  
+});
+
+/** 
+  `InfiniteTableViewFooterComponent`
+  
+  Pie de una `InfiniteTableViewComponent`
+  
+  @class        InfiniteTableViewFooterComponent
+  @namespace    Northwind
+  @extends      Ember.Component
+  
+**/
+Northwind.InfiniteTableViewFooterComponent = Ember.Component.extend({
+  
+  tagName: 'footer',
+  
+  classNames: ['list-group-footer']
+  
+});
 ;/**
     `ApplicationAdapter` 
 
@@ -1143,23 +1466,29 @@ Northwind.ApplicationRoute = Ember.Route.extend({
 **/
 Northwind.CustomersRoute = Ember.Route.extend({   
 
+    controller: null,
+
     /**
         model
     **/
     model: function () {
 
-        var controller = this.controllerFor('customer');
+        var controller = this.controllerFor('customers');
 
-        return this.get('store').findQuery('customer', { offset: controller.offset, limit: controller.limit });
+        if (controller) {
+            return this.get('store').findQuery('customer', { offset: controller.offset, limit: controller.limit });
+        }        
 
     },   
 
     /**
         setupController
     **/
-    setupController: function (controller, model) {
+    setupController: function (controller, model) {        
         controller.set('content', model);
         controller.set('contentLoaded', true);
+
+        this.set('controller', controller);
     },
 
     /**
@@ -1167,9 +1496,14 @@ Northwind.CustomersRoute = Ember.Route.extend({
     **/
     renderTemplate: function () {
 
-        this.render('customer-list', {
+        this.render('customers', {
             into: 'application',
             outlet: 'content'
+        });
+
+        this.render('customer-list', {
+            into: 'customers',
+            outlet: 'customerList'
         });
 
     }
@@ -1195,8 +1529,8 @@ Northwind.CustomerRoute = Ember.Route.extend({
     renderTemplate: function () {
 
         this.render('customer', {
-            into: 'application',
-            outlet: 'content'
+            into: 'customers',
+            outlet: 'customerDetail'
         });
 
     }    
@@ -1380,7 +1714,7 @@ Northwind.ObjectController = Ember.ObjectController.extend({
     @namespace  Northwind
     @extends    Northwind.Common.Components.Grid.GridController
 **/
-Northwind.ArrayController = Northwind.Common.Components.Grid.GridController.extend({
+Northwind.ArrayController = Ember.ArrayController.extend(Northwind.Common.Components.Grid.Pagination, {
     
     contentLoaded: false,
 
@@ -1472,26 +1806,21 @@ Northwind.CustomerController = Northwind.ObjectController.extend({
     @namespace  Northwind
     @extends    Northwind.ArrayController
 **/
-Northwind.CustomersController = Northwind.ArrayController.extend({		
+Northwind.CustomersController = Northwind.ArrayController.extend(Northwind.SearchingSupport, {		
+
+	limit: 50,
 
 	itemController: 'customer',
 
-	/**
-		columns
-	**/
-    columns: [
-		Northwind.Common.Components.Grid.column('contactName', { 
-			header: 'Contact Name',
-			formatter: Northwind.Common.Components.Avatar.AvatarView.extend({
-				title: 'view.content.contactName',
-				subtitle: 'view.content.contactTitle'
-			})
-		}),
-		Northwind.Common.Components.Grid.column('companyName', { header: 'Company Name' }),
-		Northwind.Common.Components.Grid.column('contactTitle', { header: 'Contact Title' })
-	]	
+	searchProperties: Ember.A(['contactName', 'contactTitle']),
+
+	filterableContentBinding: 'paginableContent',
+
+  	itemsBinding: 'filteredContent'
 
 });
+
+
 ;/**
     `OrderController` 
 
@@ -1576,32 +1905,6 @@ Northwind.TextEditView = Ember.TextField.extend({
 });
 
 Ember.Handlebars.helper('text-edit', Northwind.TextEditView);
-
-;/**
-`CustomersView` 
-
-@class 		CustomersView
-@namespace 	Northwind
-@extends 	Northwind.Common.Components.Grid.TableView
-
-*/
-Northwind.CustomersView = Northwind.Common.Components.Grid.TableView.extend({
-
-    /**
-    Cambiamos las clases para la tabla
-    **/
-    init: function () {
-
-        this._super();
-
-        var classNames = ['table', 'table-hover', 'customers-list'];
-
-        this.set('classNames', classNames);
-
-    }
-
-});
-
 
 ;/** 
 	Vista que se encarga de renderizar los datos de un customer
