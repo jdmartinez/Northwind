@@ -22,6 +22,7 @@ components/grid/cell_view.js
 components/grid/footer_view.js
 components/avatar/avatar_view.js
 components/infinite-table-view.js
+components/google-map.js
 
 adapters/application_adapter.js
 

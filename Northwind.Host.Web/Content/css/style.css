@@ -87,8 +87,7 @@ header[role="banner"] {
 /* CONTENT */
 #content {
   margin-left: 200px;
-  padding: 20px;
-  position: fixed; }
+  padding: 20px; }
 
 /**	
 	@mixin	avatar	

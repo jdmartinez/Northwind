@@ -18,6 +18,12 @@ Northwind.Customer = Northwind.Model.extend({
 	country: DS.attr('string'),
 	phone: DS.attr('string'),
 	fax: DS.attr('string'),
+
+	completeAddress: function () {
+
+		return this.get('address') + '. ' + this.get('city') + '. ' + this.get('postalCode') + '. ' + this.get('country');
+
+	}.property('address', 'city', 'postalCode', 'country'),
 	    
     orders: DS.hasMany('order')
 });

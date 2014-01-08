@@ -157,6 +157,7 @@
     <Content Include="Content\js\application.js" />
     <Content Include="Content\js\common\namespaces.js" />
     <Content Include="Content\js\common\uri.js" />
+    <Content Include="Content\js\components\google-map.js" />
     <Content Include="Content\js\components\infinite-table-view.js" />
     <Content Include="Content\js\components\main.js" />
     <Content Include="Content\js\components\avatar\avatar_view.js" />
@@ -213,6 +214,7 @@
     <None Include="Content\js\templates\about.hbs" />
     <None Include="Content\js\templates\application.hbs" />
     <None Include="Content\js\templates\components\infinite-table-view.hbs" />
+    <None Include="Content\js\templates\components\google-map.hbs" />
     <Content Include="Content\js\views\customer\customer_view.js" />
     <Content Include="Content\js\views\text_edit_view.js" />
     <Content Include="Global.asax" />

@@ -80,6 +80,18 @@ function program4(depth0,data) {
   
 });
 
+Ember.TEMPLATES["components/google-map"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "yield", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  
+});
+
 Ember.TEMPLATES["components/infinite-table-view-header"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -239,7 +251,7 @@ function program7(depth0,data) {
 Ember.TEMPLATES["customer/customer"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, stack2, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
@@ -250,6 +262,12 @@ function program1(depth0,data) {
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "fax", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("</dd>\r\n        ");
   return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  
+  data.buffer.push("\r\n                    <h3>Mapa</h3>\r\n                ");
   }
 
   data.buffer.push("<div id=\"customer-profile\" class=\"customer-profile\">\r\n    <div class=\"row customer-header\">\r\n        <i class=\"fa fa-user avatar img-circle\"></i>\r\n        <h3 class=\"name\">");
@@ -289,7 +307,17 @@ function program1(depth0,data) {
   hashContexts = {};
   stack1 = helpers['if'].call(depth0, "fax", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n        </dl>        \r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n            <dt class=\"separator\"></dt>\r\n            <dl></dl>\r\n            <dt>Mapa<dt>\r\n            <dd>\r\n                ");
+  hashContexts = {'address': depth0,'width': depth0,'height': depth0};
+  hashTypes = {'address': "ID",'width': "STRING",'height': "STRING"};
+  options = {hash:{
+    'address': ("completeAddress"),
+    'width': ("100%"),
+    'height': ("400px")
+  },inverse:self.noop,fn:self.program(3, program3, data),contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  stack2 = ((stack1 = helpers['google-map'] || depth0['google-map']),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "google-map", options));
+  if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("\r\n            </dd>\r\n        </dl>        \r\n    </div>    \r\n</div>\r\n");
   return buffer;
   
 });
@@ -1291,6 +1319,166 @@ Northwind.InfiniteTableViewFooterComponent = Ember.Component.extend({
   classNames: ['list-group-footer']
   
 });
+;/** 
+	`MapComponent`
+	  
+	Componente que utiliza Google Maps para la generación de mapas.
+	  
+	El modo mas facil de crear un `MapComponent` es mediante una plantilla,
+	como por ejemplo:
+	  
+	```html
+	{{map address="1 Infinite Loop"}}
+	```	  
+	  
+	@class        GoogleMapComponent
+	@namespace    Northwind
+	@extends      Ember.Component    
+  
+**/
+Northwind.GoogleMapComponent = Ember.Component.extend({
+
+	latitude: 0,
+
+	longitude: 0,
+
+	address: 0,
+
+	marker: null,
+
+	map: null,
+
+	draggable: false,
+
+	isDragging: false,
+
+	width: 0,
+
+	height: 0,
+
+	/**
+		Método que se dispara cuando el valor de `address` cambia
+
+		@method		addressChanged
+	**/
+	addressChanged: function () {
+
+		var address = this.get("address");
+  
+	    if ( !address ) return;
+	  
+	    var geocoder = new google.maps.Geocoder();        
+	    var self = this;
+	  
+	    geocoder.geocode({ 'address': address }, function (results, status) {
+	      
+	      // Obtenemos la latitud y longitud de la dirección indicada
+	      self.setProperties({
+	        latitude: results[0].geometry.location.lat(),
+	        longitude: results[0].geometry.location.lng()
+	      });          
+	      
+	    });
+
+	}.observes('address'),
+
+	/**
+		Método que se dispara cuando el valor de `latitude` o `longitude` cambia
+
+		@method		coordinatesChanged
+	**/
+	coordinatesChanged: function () {
+
+		var latitude = this.get('latitude');
+		var longitude = this.get('longitude');
+		var position = new google.maps.LatLng(latitude, longitude);		
+
+		// Centramos el mapa a la nueva posición
+		this.get('map').setCenter(position);
+		// Actualizamos el marcador
+		this.get('marker').setPosition(position);
+
+	}.observes('latitude', 'longitude'),
+
+	/**
+		Método que se ejecuta cuando se va a añadir el elemento al DOM
+	**/
+	didInsertElement: function() {
+
+		var self = this;
+
+		// Necesario para renderizar el mapa
+    	this.$().css({ 
+    		width: self.get('width'), 
+    		height: self.get('height')
+    	});
+
+		var latitude = this.get('latitude');
+		var longitude = this.get('longitude');
+		var draggable = this.get('draggable');
+
+		// Objeto que se encargará de centrar el mapa y el marcador
+		var center = new google.maps.LatLng(latitude, longitude);
+
+		// Opciones
+		var options = {
+			disableDefaultUI: true,
+			center: center,
+			zoom: 15,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		// Creación del mapa
+		var map = new google.maps.Map(this.$()[0], options);
+
+		// Creación del marcador
+		var marker = new google.maps.Marker({ 
+			position: center, 
+			map: map, 
+			draggable: false 
+		});
+
+		this.set('map', map);
+		this.set('marker', marker);		
+
+		// Creamos los listeners si se permite arrastrar el marcador
+		if (draggable) {
+			google.maps.event.addListener(marker, "drag", function () {
+
+				// Posición actual del marcador
+				var position = marker.getPosition();
+
+				// Actualizamos la latitud y la longitud
+				self.setProperties({
+					latitude: position.lat(),
+					longitude: position.lng()
+				});
+			});
+
+			google.maps.event.addListener(marker, "dragstart", function () {
+
+				self.set('isDragging', true);
+
+			});
+
+			google.maps.event.addListener(marker, "dragend", function () {
+
+				self.set('isDragging', false);
+
+			});
+		}
+
+	},
+
+	/**
+		Método que se ejecuta cuando se va a destruir el elemento del DOM
+	**/
+	willDestroyElement: function() {
+		// Eliminamos los listeners
+    	google.maps.event.clearInstanceListeners(this.get("marker"));
+	}
+
+});
 ;/**
     `ApplicationAdapter` 
 
@@ -1980,6 +2168,12 @@ Northwind.Customer = Northwind.Model.extend({
 	country: DS.attr('string'),
 	phone: DS.attr('string'),
 	fax: DS.attr('string'),
+
+	completeAddress: function () {
+
+		return this.get('address') + '. ' + this.get('city') + '. ' + this.get('postalCode') + '. ' + this.get('country');
+
+	}.property('address', 'city', 'postalCode', 'country'),
 	    
     orders: DS.hasMany('order')
 });
