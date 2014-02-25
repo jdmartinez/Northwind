@@ -21,22 +21,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Northwind.ServiceBase.Meta;
 
-namespace Northwind.ServiceBase
+namespace Northwind.ServiceBase.Meta
 {
 	/// <summary>
-	/// Clase que representa un Dto
+	/// Define los tipos de <see cref="Uri"/> presentes en los petadatos
 	/// </summary>
-	public class CommonDto : IDto
+	public enum LinkRelationType
 	{
-		#region Miembros de IDto
+		/// <summary>
+		/// <see cref="Uri"/> que representa a la misma entidad
+		/// </summary>
+		Self,
 
 		/// <summary>
-		/// Enlace a la entidad
+		/// <see cref="Uri"/> que representa a la siguiente página de datos
 		/// </summary>
-		public Link Link { get; internal set; }		
+		Next,
 
-		#endregion
+		/// <summary>
+		/// <see cref="Uri"/> que representa a la anterior página de datos
+		/// </summary>
+		Previous,
+
+		/// <summary>
+		/// <see cref="Uri"/> que representa a la primera página de datos
+		/// </summary>
+		First,
+
+		/// <summary>
+		/// <see cref="Uri"/> que representa a la última página de datos
+		/// </summary>
+		Last
 	}
 }

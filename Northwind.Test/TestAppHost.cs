@@ -97,13 +97,14 @@ namespace Northwind.Test
 			JsConfig.IncludeNullValues = false;
 			JsConfig.DateHandler = JsonDateHandler.ISO8601;
 			JsConfig.EscapeUnicode = true;
-			JsConfig<MetadataUriType>.SerializeFn = text => text.ToString().ToCamelCase();
-			JsConfig<RelationType>.SerializeFn = text => text.ToString().ToCamelCase();
+			//JsConfig<LinkRelationType>.SerializeFn = text => text.ToString().ToCamelCase();
+			//JsConfig<RelationType>.SerializeFn = text => text.ToString().ToCamelCase();
 
 			// ServiceStack
 			SetConfig(new EndpointHostConfig
 			{
-				DebugMode = true
+				DebugMode = true,
+				WebHostUrl = TestConfig.AbsoluteBaseUri.ToString()
 			});
 
 			// Plugins

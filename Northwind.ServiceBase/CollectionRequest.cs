@@ -21,8 +21,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ServiceStack;
+using ServiceStack.Common;
 using ServiceStack.ServiceHost;
+using ServiceStack.ServiceClient.Web;
+using ServiceStack.WebHost.Endpoints;
+
+using Northwind.Common;
 using Northwind.ServiceBase.Query;
+using Northwind.ServiceBase.Meta;
 
 namespace Northwind.ServiceBase
 {	
@@ -32,18 +39,22 @@ namespace Northwind.ServiceBase
 	/// <typeparam name="T"></typeparam>
 	public class CollectionRequest : ICollectionRequest
 	{
+		#region Miembros de ICollectionRequest
+
 		/// <summary>
-		/// 
+		/// Índice del primer elemento de la colección
 		/// </summary>
 		public int Offset { get; set; }
 
 		/// <summary>
-		/// 
+		/// Número de elementos de la colección
 		/// </summary>
 		public int Limit { get; set; }
 
+		#endregion
+
 		#region Miembros de ISearchable
-	
+
 		/// <summary>
 		/// Representa una expresión de búsqueda y filtrado de datos
 		/// </summary>
@@ -51,5 +62,26 @@ namespace Northwind.ServiceBase
 		public IQueryExpression Query { get; set; }
 
 		#endregion
+
+		#region Constructores
+
+		/// <summary>
+		/// Constructur de la clase
+		/// </summary>
+		public CollectionRequest()
+		{ }
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="offset"></param>
+		/// <param name="limit"></param>
+		public CollectionRequest( int offset, int limit )
+		{
+			Offset = offset;
+			Limit = limit;
+		}
+
+		#endregion		
 	}
 }

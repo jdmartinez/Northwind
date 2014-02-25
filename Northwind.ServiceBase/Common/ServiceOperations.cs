@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Northwind.ServiceBase.Common
@@ -63,5 +64,17 @@ namespace Northwind.ServiceBase.Common
 		/// 
 		/// </summary>
 		public const String SortDescending = "desc";
+
+		/// <summary>
+		/// Devuelve una lista con todas operaciones permitidas
+		/// </summary>
+		/// <returns></returns>
+		public static IEnumerable<string> GetAllOperations()
+		{
+			return typeof(ServiceOperations)
+				.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+				.Where(f => f.IsLiteral && !f.IsInitOnly)
+				.Select(f => f.GetValue(null).ToString());
+		}
 	}
 }

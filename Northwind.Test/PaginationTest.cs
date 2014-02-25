@@ -117,17 +117,17 @@ namespace Northwind.Test
 				Assert.IsTrue(l1.Count > 0);
 				Assert.IsTrue(l2.Count > 0);
 				Assert.IsTrue(l2.Count > l1.Count);
-				Assert.AreNotEqual(l1[MetadataUriType.Self], l2[MetadataUriType.Self]);
-				
-				Assert.IsFalse(l1.ContainsKey(MetadataUriType.Previous));
-				Assert.IsTrue(l1.ContainsKey(MetadataUriType.Next));
-				Assert.IsTrue(l1.ContainsKey(MetadataUriType.Last));
+				Assert.AreNotEqual(l1.FirstOrDefault(l => l.Relation == LinkRelationType.Self), l2.FirstOrDefault(l => l.Relation == LinkRelationType.Self));
 
-				Assert.IsTrue(l2.ContainsKey(MetadataUriType.Previous));
-				Assert.IsTrue(l2[MetadataUriType.Previous] == l1[MetadataUriType.Self]);
-				Assert.IsTrue(l2[MetadataUriType.Self] == l1[MetadataUriType.Next]);
-				Assert.IsTrue(l2[MetadataUriType.Last] == l1[MetadataUriType.Last]);
-				Assert.IsTrue(l2[MetadataUriType.Next] != l1[MetadataUriType.Next]);
+				Assert.IsFalse(l1.Any(l => l.Relation == LinkRelationType.Previous));
+				Assert.IsTrue(l1.Any(l => l.Relation == LinkRelationType.Next), "No existe página siguiente");
+				Assert.IsTrue(l1.Any(l => l.Relation == LinkRelationType.Last), "No existe última siguiente");
+
+				Assert.IsTrue(l2.Any(l => l.Relation == LinkRelationType.Previous));
+				Assert.IsTrue(l2.FirstOrDefault(l => l.Relation == LinkRelationType.Previous).Href == l1.FirstOrDefault(l => l.Relation == LinkRelationType.Self).Href);
+				Assert.IsTrue(l2.FirstOrDefault(l => l.Relation == LinkRelationType.Self).Href == l1.FirstOrDefault(l => l.Relation == LinkRelationType.Next).Href);
+				Assert.IsTrue(l2.FirstOrDefault(l => l.Relation == LinkRelationType.Last).Href == l1.FirstOrDefault(l => l.Relation == LinkRelationType.Last).Href);
+				Assert.IsTrue(l2.FirstOrDefault(l => l.Relation == LinkRelationType.Next).Href != l1.FirstOrDefault(l => l.Relation == LinkRelationType.Next).Href);
 			}
 			catch ( Exception ex )
 			{

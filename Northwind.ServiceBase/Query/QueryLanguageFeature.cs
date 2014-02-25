@@ -101,7 +101,11 @@ namespace Northwind.ServiceBase.Query
 
 			if ( dto is ISearchable )
 			{
-				SetQueryExpression(dto as ISearchable, req.QueryString);
+				// Sólo creamos la expresión si los parámetros contiene alguna de las operaciones de query
+				if ( req.QueryString.AllKeys.Any(k => ServiceOperations.GetAllOperations().Contains(k)) )
+				{
+					SetQueryExpression(dto as ISearchable, req.QueryString);
+				}
 			}
 		}
 		#endregion

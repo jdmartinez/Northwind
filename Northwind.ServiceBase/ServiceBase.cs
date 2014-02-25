@@ -24,6 +24,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Text;
 using System.Security.Cryptography;
+using ServiceStack;
 using ServiceStack.Common;
 using ServiceStack.Common.Utils;
 using ServiceStack.Common.Web;
@@ -49,20 +50,24 @@ namespace Northwind.ServiceBase
 	{		
 
 		/// <summary>
-		/// 
+		/// Repositorio de comunicación con la base de datos
 		/// </summary>
 		protected readonly IRepository<TEntity> Repository;
 
+		#region Constructor
+		
 		/// <summary>
 		/// Constructor de la clase
 		/// </summary>
-		/// <param name="repository"></param>
+		/// <param name="repository">Repositorio que se utilizará para la comunicación con la base de datos</param>
 		public ServiceBase( IRepository<TEntity> repository )
 		{
 			Verify.ArgumentNotNull(repository, "repository");
 
 			Repository = repository;			
 		}
+
+		#endregion
 
 		#region Métodos públicos
 
@@ -100,7 +105,8 @@ namespace Northwind.ServiceBase
 			Response.AddHeaderLastModified(result.LastUpdated);
 			Response.AddHeader(HttpHeaders.ETag, result.GetETagValue());
 
-			return TypeExtensionHelper.CreateInstance<TResponse>(result.TranslateTo<TDto>());
+			//return TypeExtensionHelper.CreateInstance<TResponse>(result.TranslateTo<TDto>());
+			return CreateResponse<TResponse>(result.TranslateTo<TDto>());
 
 		}
 		#endregion
@@ -120,22 +126,46 @@ namespace Northwind.ServiceBase
 
 			FixOffsetAndLimit(request);
 
+			// Búsqueda de resultados
 			var result = Repository
 				.GetAll(queryExpr, request.Offset, request.Limit)
 				.Select(e =>
 				{
 					var dto = e.TranslateTo<TDto>();
-					dto.Link = new Uri(String.Format("{0}/{1}", requestUrl, dto.GetId<TDto>().ToString()));
+					dto.Link = new Link(LinkRelationType.Self, new Uri(String.Format("{0}/{1}", requestUrl, dto.GetId<TDto>().ToString())));
 					return dto;
 				})
-				.ToList();
+				.ToList();						
 
-			// Creación de la respuesta			
-			var response = TypeExtensionHelper.CreateInstance<TResponse>(result);			
-			response.Metadata = new Metadata(
-				new Uri(base.RequestContext.AbsoluteUri),
-				new StaticList<TDto>(result, request.Offset, request.Limit, Repository.Count())
-			);
+			// Totales			
+			var totalCount = Repository.Count();
+
+			// Enlaces de paginación
+			var links = CreatePaginationLinks(request.Offset, request.Limit, totalCount);
+			
+
+			// Creación de la respuesta
+			var response = CreateResponse<TResponse>(result);
+
+			// Metadatos
+			response.Metadata = new Metadata()
+			{
+				Offset = request.Offset, 
+				Limit = request.Limit,
+				TotalCount = totalCount,
+				Links = links
+			};
+
+			// Cabecera HTTP de paginación
+			var headerLinks = links
+				.Where(lnk => lnk.Relation != LinkRelationType.Self)
+				.Select(lnk => lnk.ToString(LinkSerializationFormat.HttpHeader))
+				.Join(",");
+
+			if ( !String.IsNullOrEmpty(headerLinks) )
+			{
+				Response.AddHeader("Link", headerLinks);
+			}
 
 			return response;
 				
@@ -156,7 +186,7 @@ namespace Northwind.ServiceBase
 		}
 		#endregion
 
-		#region Put
+		#region Update
 		/// <summary>
 		/// Actualización completa de un elemento.
 		/// <para>
@@ -168,13 +198,15 @@ namespace Northwind.ServiceBase
 		/// <returns>El nuevo objeto creado</returns>
 		protected object Update( TDto dto )
 		{
-			Repository.Update(dto.TranslateTo<TEntity>());
+			Repository.Update(dto.TranslateTo<TEntity>());			
+
+			base.RequestContext.RemoveFromCache(base.Cache, GetCurrentRequestCacheKey());
 
 			return new HttpResult(HttpStatusCode.OK);
 		}
 		#endregion
 
-		#region Post
+		#region Insert
 		/// <summary>
 		/// Creación de un elemento
 		/// <para>
@@ -228,6 +260,7 @@ namespace Northwind.ServiceBase
 
 		#region Métodos privados
 
+		#region FixOffsetAndLimit
 		/// <summary>
 		/// Establece los límites de recuperación de datos
 		/// </summary>
@@ -237,7 +270,77 @@ namespace Northwind.ServiceBase
 			if ( request.Offset < 1 ) request.Offset = 1;
 			if ( request.Limit < 1 ) request.Limit = 10;
 		}		
+		#endregion		
+
+		#region CreatePaginationLink
+		/// <summary>
+		/// Creación de un link de paginación
+		/// </summary>
+		/// <param name="linkType"></param>
+		/// <param name="offset"></param>
+		/// <param name="limit"></param>
+		/// <returns></returns>
+		private Link CreatePaginationLink( LinkRelationType linkType, int offset, int limit )
+		{
+			var uri = new Uri(base.RequestContext.AbsoluteUri)
+				.AddQuery(ServiceOperations.Offset, offset.ToString())
+				.AddQuery(ServiceOperations.Limit, limit.ToString());
+
+			return new Link(linkType, uri);
+
+		}
+		#endregion
+
+		#region CreatePaginationLinks
+
+		/// <summary>
+		/// Creación de los enlaces de paginación a partir del índice indicado
+		/// </summary>
+		/// <param name="offset">Índice del primer elemento de la lista</param>
+		/// <param name="limit">Límite de elementos por página</param>
+		/// <param name="totalCount">Número de elementos totales</param>
+		/// <returns><see cref="List{Link}"/></returns>
+		public List<Link> CreatePaginationLinks( int offset, int limit, long totalCount )
+		{
+			var pageCount = (totalCount > 0 ? (int)Math.Ceiling(totalCount / (double)limit) : 0);
+			var pageNumber = (pageCount > 0 ? (int)Math.Ceiling((offset) / (double)limit) : 1);
+			var links = new List<Link>();
+
+			links.Add(CreatePaginationLink(LinkRelationType.Self, offset, limit));	// Actual			
+
+			if ( pageNumber > 1 )
+			{
+				links.Add(CreatePaginationLink(LinkRelationType.First, 1, limit));
+				links.Add(CreatePaginationLink(LinkRelationType.Previous, offset - limit, limit));
+			}
+
+			if ( pageNumber < pageCount )
+			{
+				links.Add(CreatePaginationLink(LinkRelationType.Next, offset + limit, limit));
+
+				var lastOffset = (pageCount - 1) * limit + 1;
+				links.Add(CreatePaginationLink(LinkRelationType.Last, lastOffset, limit));
+			}
+
+			return links;
+		}
 
 		#endregion
+
+		#region CreateResponse
+		/// <summary>
+		/// Creación de un objecto de respuesta <see cref="TResponse"/>
+		/// </summary>
+		/// <typeparam name="TResponse">Tipo de la respuesta</typeparam>
+		/// <param name="args">Parámetros del objeto</param>
+		/// <returns>Un objeto de tipo <see cref="TResponse"/></returns>
+		private TResponse CreateResponse<TResponse>( params object[] args )
+		{
+			return TypeExtensionHelper.CreateInstance<TResponse>(args);
+		}
+		#endregion
+
+		#endregion
+
 	}
 }

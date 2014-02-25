@@ -22,6 +22,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Northwind.ServiceBase.Meta;
+
 namespace Northwind.ServiceBase
 {
 	/// <summary>
@@ -32,7 +34,7 @@ namespace Northwind.ServiceBase
 		/// <summary>
 		/// Enlace a la entidad
 		/// </summary>
-		Uri Link { get; }
+		Link Link { get; }
 		
 	}
 }

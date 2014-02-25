@@ -18,29 +18,21 @@
 #endregion
           
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 using ServiceStack.Api.Swagger;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Common.Utils;
-using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.Cors;
 using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using ServiceStack.Razor;
-using System.Configuration;
 using Northwind.Data.Model;
 using Northwind.Data.Repositories;
 using Northwind.ServiceBase;
-using Northwind.ServiceBase.Formats;
 using Northwind.ServiceBase.Meta;
 using Northwind.ServiceBase.Query;
 using Northwind.ServiceBase.Relations;
@@ -72,20 +64,20 @@ namespace Northwind.Host.Web
 		/// <param name="container">Contenedor IoC</param>
 		public override void Configure( Funq.Container container )
 		{
-			// JSON
+			// Configuración JSON
 			JsConfig.EmitCamelCaseNames = true;
 			JsConfig.IncludeNullValues = false;
 			JsConfig.DateHandler = JsonDateHandler.ISO8601;
-			JsConfig.EscapeUnicode = true;
-			JsConfig<MetadataUriType>.SerializeFn = text => text.ToString().ToCamelCase();
-			JsConfig<RelationType>.SerializeFn = text => text.ToString().ToCamelCase();
+			JsConfig.EscapeUnicode = true;			
+			//JsConfig<LinkRelationType>.SerializeFn = (text => text.ToString().ToLower());
 
-			// ServiceStack
+			// Configuración de serviceStack
 			SetConfig(new EndpointHostConfig
 			{
-				DebugMode = true
-			});
-			
+				DebugMode = true,
+				WebHostUrl = HttpContext.Current.Request.Url.ToString()
+			});			
+
 			// Plugins
 			var queryPlugin = new QueryLanguageFeature();
 			queryPlugin.RegisterAssociation(typeof(Customer), typeof(CustomerEntity));
@@ -144,7 +136,7 @@ namespace Northwind.Host.Web
 		#endregion
 
 		#endregion		
-
+		
 		#region Miembros estáticos
 
 		#region Start
