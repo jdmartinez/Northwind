@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Northwind.ServiceBase;
 using Northwind.ServiceBase.Relations;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace Northwind.ServiceModel.Dto
 {

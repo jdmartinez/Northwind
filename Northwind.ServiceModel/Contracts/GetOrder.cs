@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 using Northwind.ServiceBase;
 using Northwind.ServiceModel.Dto;
 using Northwind.ServiceModel.Operations;
@@ -32,7 +32,7 @@ namespace Northwind.ServiceModel.Contracts
 	/// Clase que representa una petición del tipo <see cref="Order"/> por su clave
 	/// </summary>
 	[Api("Get a single ORder by Id.")]
-	[Route("/orders/{Id}", "GET")]
+	//[Route("/orders/{Id}", "GET")]
 	public class GetOrder : SingleRequest, IReturn<OrderResponse>
 	{
 		public long CustomerId { get; set; }

@@ -18,7 +18,6 @@ namespace Northwind.Test.Data
 		public static List<OrderDetailEntity> OrderDetails { get; set; }
 		public static List<RegionEntity> Regions { get; set; }
 		public static List<TerritoryEntity> Territories { get; set; }
-		public static List<EmployeeTerritoryEntity> EmployeeTerritories { get; set; }
 
 		public static void LoadData()
 		{
@@ -3542,58 +3541,7 @@ namespace Northwind.Test.Data
                 NorthwindFactory.Territory("98052","Redmond",2),
                 NorthwindFactory.Territory("98104","Seattle",2),
 			};
-
-			EmployeeTerritories = new List<EmployeeTerritoryEntity> {
-                NorthwindFactory.EmployeeTerritory(1,"06897"),
-                NorthwindFactory.EmployeeTerritory(1,"19713"),
-                NorthwindFactory.EmployeeTerritory(2,"01581"),
-                NorthwindFactory.EmployeeTerritory(2,"01730"),
-                NorthwindFactory.EmployeeTerritory(2,"01833"),
-                NorthwindFactory.EmployeeTerritory(2,"02116"),
-                NorthwindFactory.EmployeeTerritory(2,"02139"),
-                NorthwindFactory.EmployeeTerritory(2,"02184"),
-                NorthwindFactory.EmployeeTerritory(2,"40222"),
-                NorthwindFactory.EmployeeTerritory(3,"30346"),
-                NorthwindFactory.EmployeeTerritory(3,"31406"),
-                NorthwindFactory.EmployeeTerritory(3,"32859"),
-                NorthwindFactory.EmployeeTerritory(3,"33607"),
-                NorthwindFactory.EmployeeTerritory(4,"20852"),
-                NorthwindFactory.EmployeeTerritory(4,"27403"),
-                NorthwindFactory.EmployeeTerritory(4,"27511"),
-                NorthwindFactory.EmployeeTerritory(5,"02903"),
-                NorthwindFactory.EmployeeTerritory(5,"07960"),
-                NorthwindFactory.EmployeeTerritory(5,"08837"),
-                NorthwindFactory.EmployeeTerritory(5,"10019"),
-                NorthwindFactory.EmployeeTerritory(5,"10038"),
-                NorthwindFactory.EmployeeTerritory(5,"11747"),
-                NorthwindFactory.EmployeeTerritory(5,"14450"),
-                NorthwindFactory.EmployeeTerritory(6,"85014"),
-                NorthwindFactory.EmployeeTerritory(6,"85251"),
-                NorthwindFactory.EmployeeTerritory(6,"98004"),
-                NorthwindFactory.EmployeeTerritory(6,"98052"),
-                NorthwindFactory.EmployeeTerritory(6,"98104"),
-                NorthwindFactory.EmployeeTerritory(7,"60179"),
-                NorthwindFactory.EmployeeTerritory(7,"60601"),
-                NorthwindFactory.EmployeeTerritory(7,"80202"),
-                NorthwindFactory.EmployeeTerritory(7,"80909"),
-                NorthwindFactory.EmployeeTerritory(7,"90405"),
-                NorthwindFactory.EmployeeTerritory(7,"94025"),
-                NorthwindFactory.EmployeeTerritory(7,"94105"),
-                NorthwindFactory.EmployeeTerritory(7,"95008"),
-                NorthwindFactory.EmployeeTerritory(7,"95054"),
-                NorthwindFactory.EmployeeTerritory(7,"95060"),
-                NorthwindFactory.EmployeeTerritory(8,"19428"),
-                NorthwindFactory.EmployeeTerritory(8,"44122"),
-                NorthwindFactory.EmployeeTerritory(8,"45839"),
-                NorthwindFactory.EmployeeTerritory(8,"53404"),
-                NorthwindFactory.EmployeeTerritory(9,"03049"),
-                NorthwindFactory.EmployeeTerritory(9,"03801"),
-                NorthwindFactory.EmployeeTerritory(9,"48075"),
-                NorthwindFactory.EmployeeTerritory(9,"48084"),
-                NorthwindFactory.EmployeeTerritory(9,"48304"),
-                NorthwindFactory.EmployeeTerritory(9,"55113"),
-                NorthwindFactory.EmployeeTerritory(9,"55439"),
-			};
+			
 		}		
 	}
 }

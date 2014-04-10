@@ -26,22 +26,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
+using ServiceStack;
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
+using ServiceStack.Caching;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.Cors;
-using ServiceStack.ServiceInterface.Validation;
+using ServiceStack.Validation;
 using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
 using Northwind.Data.Model;
 using Northwind.Data.Repositories;
 using Northwind.ServiceBase;
-using Northwind.ServiceBase.Formats;
 using Northwind.ServiceBase.Meta;
 using Northwind.ServiceBase.Query;
 using Northwind.ServiceBase.Relations;
@@ -50,6 +44,7 @@ using Northwind.ServiceInterface.Validators;
 using Northwind.ServiceModel.Contracts;
 using Northwind.ServiceModel.Dto;
 using Northwind.Test.Data;
+using ServiceStack.Data;
 
 namespace Northwind.Test
 {
@@ -93,15 +88,15 @@ namespace Northwind.Test
 		public override void Configure( Funq.Container container )
 		{
 			// JSON
-			JsConfig.EmitCamelCaseNames = true;
-			JsConfig.IncludeNullValues = false;
-			JsConfig.DateHandler = JsonDateHandler.ISO8601;
-			JsConfig.EscapeUnicode = true;
+            JsConfig.EmitCamelCaseNames = true;
+            JsConfig.IncludeNullValues = false;
+            JsConfig.DateHandler = DateHandler.ISO8601;
+            JsConfig.EscapeUnicode = true;
 			//JsConfig<LinkRelationType>.SerializeFn = text => text.ToString().ToCamelCase();
 			//JsConfig<RelationType>.SerializeFn = text => text.ToString().ToCamelCase();
 
 			// ServiceStack
-			SetConfig(new EndpointHostConfig
+			SetConfig(new HostConfig
 			{
 				DebugMode = true,
 				WebHostUrl = TestConfig.AbsoluteBaseUri.ToString()
@@ -113,46 +108,19 @@ namespace Northwind.Test
 			queryPlugin.RegisterAssociation(typeof(GetCustomers), typeof(CustomerEntity));
 			queryPlugin.RegisterAssociation(typeof(Order), typeof(OrderEntity));
 			queryPlugin.RegisterAssociation(typeof(GetOrders), typeof(OrderEntity));
-			queryPlugin.RegisterAssociation(typeof(Supplier), typeof(SupplierEntity));
-			queryPlugin.RegisterAssociation(typeof(GetSuppliers), typeof(SupplierEntity));
 
-			Plugins.Add(queryPlugin);			
+            Plugins.Add(queryPlugin as IPlugin);	
 			Plugins.Add(new ValidationFeature());
 			Plugins.Add(new CorsFeature());
 
 			// Validaciones
-			container.RegisterValidators(typeof(CustomerValidator).Assembly);						
+			container.RegisterValidators(typeof(CustomerValidator).Assembly);
 
 			// Caché
-			container.Register<ICacheClient>(new MemoryCacheClient());
-
-			// Dependencias
-			container.RegisterAs<CategoryEntityRepository, ICategoryEntityRepository>();
-			container.RegisterAs<CustomerEntityRepository, ICustomerEntityRepository>();
-			container.RegisterAs<EmployeeEntityRepository, IEmployeeEntityRepository>();
-			container.RegisterAs<OrderEntityRepository, IOrderEntityRepository>();
-			container.RegisterAs<OrderDetailEntityRepository, IOrderDetailEntityRepository>();
-			container.RegisterAs<ProductEntityRepository, IProductEntityRepository>();
-			container.RegisterAs<ShipperEntityRepository, IShipperEntityRepository>();
-			container.RegisterAs<SupplierEntityRepository, ISupplierEntityRepository>();
-			container.RegisterAs<RegionEntityRepository, IRegionEntityRepository>();
-			container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
-			container.RegisterAs<EmployeeTerritoryEntityRepository, IEmployeeTerritoryEntityRepository>();
-
-			container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
-			container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();
-			container.RegisterAs<EmployeeEntityRepository, IRepository<EmployeeEntity>>();
-			container.RegisterAs<OrderEntityRepository, IRepository<OrderEntity>>();
-			container.RegisterAs<OrderDetailEntityRepository, IRepository<OrderDetailEntity>>();
-			container.RegisterAs<ProductEntityRepository, IRepository<ProductEntity>>();
-			container.RegisterAs<ShipperEntityRepository, IRepository<ShipperEntity>>();
-			container.RegisterAs<SupplierEntityRepository, IRepository<SupplierEntity>>();
-			container.RegisterAs<RegionEntityRepository, IRepository<RegionEntity>>();
-			container.RegisterAs<TerritoryEntityRepository, IRepository<TerritoryEntity>>();
-			container.RegisterAs<EmployeeTerritoryEntityRepository, IRepository<EmployeeTerritoryEntity>>();
+			container.Register<ICacheClient>(new MemoryCacheClient());			
 
 			// Acceso a datos
-			var dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteDialect.Provider);
+			var dbFactory = new OrmLiteConnectionFactory(":memory:", /*false,*/ SqliteDialect.Provider);
 
 			container.Register<IDbConnectionFactory>(dbFactory);
 
@@ -163,7 +131,6 @@ namespace Northwind.Test
 				db.CreateTables(false, NorthwindFactory.ModelTypes.ToArray());
 				db.InsertAll(NorthwindData.Categories);
 				db.InsertAll(NorthwindData.Customers);
-				db.InsertAll(NorthwindData.EmployeeTerritories);
 				db.InsertAll(NorthwindData.OrderDetails);
 				db.InsertAll(NorthwindData.Orders);
 				db.InsertAll(NorthwindData.Products);
@@ -172,6 +139,32 @@ namespace Northwind.Test
 				db.InsertAll(NorthwindData.Suppliers);
 				db.InsertAll(NorthwindData.Territories);				
 			}
+
+            // Dependencias
+            //container.RegisterAs<CategoryEntityRepository, ICategoryEntityRepository>();
+            //container.RegisterAs<CustomerEntityRepository, ICustomerEntityRepository>();
+            //container.RegisterAs<EmployeeEntityRepository, IEmployeeEntityRepository>();
+            //container.RegisterAs<OrderEntityRepository, IOrderEntityRepository>();
+            //container.RegisterAs<OrderDetailEntityRepository, IOrderDetailEntityRepository>();
+            //container.RegisterAs<ProductEntityRepository, IProductEntityRepository>();
+            //container.RegisterAs<ShipperEntityRepository, IShipperEntityRepository>();
+            //container.RegisterAs<SupplierEntityRepository, ISupplierEntityRepository>();
+            //container.RegisterAs<RegionEntityRepository, IRegionEntityRepository>();
+            //container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
+
+            container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory));
+
+            //container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
+            //container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();
+            //container.RegisterAs<EmployeeEntityRepository, IRepository<EmployeeEntity>>();
+            //container.RegisterAs<OrderEntityRepository, IRepository<OrderEntity>>();
+            //container.RegisterAs<OrderDetailEntityRepository, IRepository<OrderDetailEntity>>();
+            //container.RegisterAs<ProductEntityRepository, IRepository<ProductEntity>>();
+            //container.RegisterAs<ShipperEntityRepository, IRepository<ShipperEntity>>();
+            //container.RegisterAs<SupplierEntityRepository, IRepository<SupplierEntity>>();
+            //container.RegisterAs<RegionEntityRepository, IRepository<RegionEntity>>();
+            //container.RegisterAs<TerritoryEntityRepository, IRepository<TerritoryEntity>>();
+
 		}
 		#endregion
 

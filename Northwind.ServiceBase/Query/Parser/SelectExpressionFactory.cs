@@ -23,6 +23,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using ServiceStack;
 using ServiceStack.Text;
 
 namespace Northwind.ServiceBase.Query.Parser

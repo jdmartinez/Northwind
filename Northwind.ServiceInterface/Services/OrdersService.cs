@@ -22,10 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using ServiceStack.Common;
-using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 using ServiceStack.Text;
 using Northwind.Data.Model;
 using Northwind.Data.Repositories;
@@ -85,7 +82,7 @@ namespace Northwind.ServiceInterface.Services
 				{
 					var details = ((IOrderEntityRepository)Repository)
 						.GetDetails(request.Id)
-						.Select(o => o.TranslateTo<OrderDetail>())
+						.Select(o => o.ConvertTo<OrderDetail>())
 						.ToList();
 
 					return new OrderDetailsCollectionResponse(details);

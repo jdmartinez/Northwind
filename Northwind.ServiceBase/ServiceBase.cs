@@ -19,19 +19,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Text;
 using System.Security.Cryptography;
 using ServiceStack;
-using ServiceStack.Common;
-using ServiceStack.Common.Utils;
-using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
 using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
 using Northwind.Common;
 using Northwind.Common.Collections;
 using Northwind.Data;
@@ -77,8 +72,8 @@ namespace Northwind.ServiceBase
 		/// </summary>
 		/// <returns>Cadena con la clave de caché para la petición actual</returns>
 		public virtual string GetCurrentRequestCacheKey()
-		{
-			return new CacheKey(Request.AbsoluteUri, Request.Headers).ToString();
+		{            
+			return new CacheKey(base.Request.AbsoluteUri, (NameValueCollection)base.Request.Headers.Original).ToString();
 		}
 		#endregion		
 
@@ -105,8 +100,8 @@ namespace Northwind.ServiceBase
 			Response.AddHeaderLastModified(result.LastUpdated);
 			Response.AddHeader(HttpHeaders.ETag, result.GetETagValue());
 
-			//return TypeExtensionHelper.CreateInstance<TResponse>(result.TranslateTo<TDto>());
-			return CreateResponse<TResponse>(result.TranslateTo<TDto>());
+			//return TypeExtensionHelper.CreateInstance<TResponse>(result.ConvertTo<TDto>());
+			return CreateResponse<TResponse>(result.ConvertTo<TDto>());
 
 		}
 		#endregion
@@ -131,7 +126,7 @@ namespace Northwind.ServiceBase
 				.GetAll(queryExpr, request.Offset, request.Limit)
 				.Select(e =>
 				{
-					var dto = e.TranslateTo<TDto>();
+					var dto = e.ConvertTo<TDto>();
 					dto.Link = new Link(LinkRelationType.Self, new Uri(String.Format("{0}/{1}", requestUrl, dto.GetId<TDto>().ToString())));
 					return dto;
 				})
@@ -182,7 +177,7 @@ namespace Northwind.ServiceBase
 		{
 			Verify.ArgumentNotNull(factoryFn, "factoryFn");
 
-			return base.RequestContext.ToOptimizedResultUsingCache<TResponse>(base.Cache, GetCurrentRequestCacheKey(), factoryFn);
+			return base.Request.ToOptimizedResultUsingCache<TResponse>(base.Cache, GetCurrentRequestCacheKey(), factoryFn);
 		}
 		#endregion
 
@@ -198,9 +193,9 @@ namespace Northwind.ServiceBase
 		/// <returns>El nuevo objeto creado</returns>
 		protected object Update( TDto dto )
 		{
-			Repository.Update(dto.TranslateTo<TEntity>());			
+			Repository.Update(dto.ConvertTo<TEntity>());			
 
-			base.RequestContext.RemoveFromCache(base.Cache, GetCurrentRequestCacheKey());
+			base.Request.RemoveFromCache(base.Cache, GetCurrentRequestCacheKey());            
 
 			return new HttpResult(HttpStatusCode.OK);
 		}
@@ -217,8 +212,8 @@ namespace Northwind.ServiceBase
 		/// <returns>{TResponse}</returns>
 		protected object Insert<TResponse>( TDto dto ) where TResponse : SingleResponse<TDto>, new()
 		{
-			var newEntity = Repository.Add(dto.TranslateTo<TEntity>());
-			var response = TypeExtensionHelper.CreateInstance<TResponse>(newEntity.TranslateTo<TDto>());
+			var newEntity = Repository.Add(dto.ConvertTo<TEntity>());
+			var response = TypeExtensionHelper.CreateInstance<TResponse>(newEntity.ConvertTo<TDto>());
 
 			return new HttpResult(response, HttpStatusCode.Created);			
 		}
@@ -232,7 +227,7 @@ namespace Northwind.ServiceBase
 		/// <returns>Status 204 (sin contenido)</returns>
 		protected object Remove( TDto request )
 		{
-			Repository.Delete(request.TranslateTo<TEntity>());
+			Repository.Delete(request.ConvertTo<TEntity>());
 
 			return new HttpResult(HttpStatusCode.NoContent);
 		}
@@ -249,7 +244,7 @@ namespace Northwind.ServiceBase
 			var current = Repository.Get(request.GetId<TDto>());
 			current.PopulateWithNonDefaultValues(request);
 
-			Repository.Update(current.TranslateTo<TEntity>());
+			Repository.Update(current.ConvertTo<TEntity>());
 
 			return new HttpResult(HttpStatusCode.OK);
 
@@ -282,7 +277,7 @@ namespace Northwind.ServiceBase
 		/// <returns></returns>
 		private Link CreatePaginationLink( LinkRelationType linkType, int offset, int limit )
 		{
-			var uri = new Uri(base.RequestContext.AbsoluteUri)
+			var uri = new Uri(base.Request.AbsoluteUri)
 				.AddQuery(ServiceOperations.Offset, offset.ToString())
 				.AddQuery(ServiceOperations.Limit, limit.ToString());
 

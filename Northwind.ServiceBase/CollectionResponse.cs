@@ -23,8 +23,6 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using ServiceStack;
-using ServiceStack.ServiceHost;
-using ServiceStack.WebHost.Endpoints.Extensions;
 using Northwind.ServiceBase.Meta;
 
 namespace Northwind.ServiceBase

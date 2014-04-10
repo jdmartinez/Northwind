@@ -25,7 +25,7 @@ using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
-using ServiceStack.Common.Extensions;
+using ServiceStack;
 using Northwind.Common;
 using Northwind.ServiceBase.Common;
 
@@ -191,8 +191,10 @@ namespace Northwind.ServiceBase.Query.Parser
 		{
 			Verify.ArgumentNotNull(typeBuilder, "typeBuilder");
 			Verify.ArgumentNotNull(properties, "properties");			
-
-			properties.ForEach(p => CreateProperty(typeBuilder, p));
+            
+			//properties.ForEach(p => CreateProperty(typeBuilder, p));
+            properties.ToList()
+                      .ForEach(p => CreateProperty(typeBuilder, p));
 		}
 		#endregion
 
@@ -293,7 +295,8 @@ namespace Northwind.ServiceBase.Query.Parser
 						  {
 							  var customAttr = t.GetCustomAttributesData();
 							  return CreateCustomAttributeBuilders(customAttr);
-						  });
+						  })
+                .ToList();
 
 			attrBuilders.ForEach(ab => typeBuilder.SetCustomAttribute(ab));
 		}
@@ -318,7 +321,8 @@ namespace Northwind.ServiceBase.Query.Parser
 						  {
 							  var customAttr = p.GetCustomAttributesData();
 							  return CreateCustomAttributeBuilders(customAttr);
-						  });
+						  })
+                .ToList();
 
 			propBuilders.ForEach(pb => propertyBuilder.SetCustomAttribute(pb));
 		}

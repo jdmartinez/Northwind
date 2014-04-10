@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 using Northwind.ServiceBase;
 using Northwind.ServiceBase.Relations;
 
@@ -30,8 +30,8 @@ namespace Northwind.ServiceModel.Dto
 	/// <summary>
 	/// Clase que representa una entidad <see cref="Order"/>
 	/// </summary>	
-	[Route("/orders", "POST")]
-	[Route("/orders/{Id}", "PUT DELETE")]
+	//[Route("/orders", "POST")]
+	//[Route("/orders/{Id}", "PUT DELETE")]
 	public class Order : CommonDto, IReturnVoid
 	{
 		public long Id { get; set; }

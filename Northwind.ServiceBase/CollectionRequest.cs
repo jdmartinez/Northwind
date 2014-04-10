@@ -22,11 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ServiceStack;
-using ServiceStack.Common;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceClient.Web;
-using ServiceStack.WebHost.Endpoints;
-
+using ServiceStack.Web;
 using Northwind.Common;
 using Northwind.ServiceBase.Query;
 using Northwind.ServiceBase.Meta;

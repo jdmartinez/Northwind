@@ -23,10 +23,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Reflection;
-using ServiceStack.Common;
+using ServiceStack;
 using ServiceStack.OrmLite;
 using Northwind.Data;
 using Northwind.Data.Model;
+using ServiceStack.Data;
 
 namespace Northwind.Data.Repositories
 {
@@ -99,14 +100,14 @@ namespace Northwind.Data.Repositories
 		public TEntity Add( TEntity entity )
 		{
 			using ( var db = dbFactory.OpenDbConnection() )
-			{
+			{                
 				db.Insert(entity);
 
 				// Hay que asegurarse que OrmLite actualiza la propiedad Id
 				var propertyInfo = entity.GetType().GetProperty("Id");
 				if ( propertyInfo != null )
 				{
-					propertyInfo.SetValue(entity, Convert.ChangeType(db.GetLastInsertId(), propertyInfo.PropertyType), null);					
+					propertyInfo.SetValue(entity, Convert.ChangeType(db.LastInsertId(), propertyInfo.PropertyType), null);					
 				}
 
 				return entity;
@@ -120,7 +121,7 @@ namespace Northwind.Data.Repositories
 		public void AddAll( IEnumerable<TEntity> entities )
 		{
 			using ( var db = dbFactory.OpenDbConnection() )
-			{				
+			{                
 				using ( var tr = db.OpenTransaction() )
 				{
 					foreach ( var e in entities )
@@ -179,7 +180,8 @@ namespace Northwind.Data.Repositories
 		{
 			using ( var db = dbFactory.OpenDbConnection() )
 			{
-				db.DeleteAll(entities);
+				//db.DeleteAll(entities);                
+                db.DeleteByIds<TEntity>(entities);
 			}
 		}
 
@@ -192,7 +194,8 @@ namespace Northwind.Data.Repositories
 		{
 			using ( var db = dbFactory.OpenDbConnection() )
 			{
-				return db.GetByIdOrDefault<TEntity>(id);
+				//return db.GetByIdOrDefault<TEntity>(id);
+                return db.SingleById<TEntity>(id);
 			}
 		}
 
@@ -202,7 +205,8 @@ namespace Northwind.Data.Repositories
 		/// <returns>Una lista de <typeparamref name="TEntity"/></returns>
 		public IEnumerable<TEntity> GetAll()
 		{
-			using ( var db = dbFactory.OpenDbConnection() )
+			using ( 
+                var db = dbFactory.OpenDbConnection() )
 			{
 				return db.Select<TEntity>();
 			}

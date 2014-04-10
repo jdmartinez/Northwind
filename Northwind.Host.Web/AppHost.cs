@@ -18,18 +18,20 @@
 #endregion
           
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
-using ServiceStack.Api.Swagger;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
+using System.Reflection;
+using ServiceStack;
+using ServiceStack.Logging;
+using ServiceStack.Caching;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface.Cors;
-using ServiceStack.ServiceInterface.Validation;
+using ServiceStack.Validation;
 using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack.Api.Swagger;
 using ServiceStack.Razor;
+using Funq;
 using Northwind.Data.Model;
 using Northwind.Data.Repositories;
 using Northwind.ServiceBase;
@@ -46,14 +48,14 @@ namespace Northwind.Host.Web
 	/// <summary>
 	/// Clase que representa la aplicación Web
 	/// </summary>
-	public class AppHost : AppHostBase
+    public class AppHost : AppHostBase /*AppHostHttpListenerBase*/
 	{
 		/// <summary>
 		/// Constructor de la clase
 		/// </summary>
 		public AppHost() : base("Northwind web services", typeof(CustomersService).Assembly)
 		{
-		}
+		}        
 
 		#region Miembros de AppHostBase
 
@@ -62,20 +64,21 @@ namespace Northwind.Host.Web
 		/// Configuración de los servicios web
 		/// </summary>
 		/// <param name="container">Contenedor IoC</param>
-		public override void Configure( Funq.Container container )
+		public override void Configure( Container container )
 		{
 			// Configuración JSON
 			JsConfig.EmitCamelCaseNames = true;
 			JsConfig.IncludeNullValues = false;
-			JsConfig.DateHandler = JsonDateHandler.ISO8601;
+			JsConfig.DateHandler = DateHandler.ISO8601;
 			JsConfig.EscapeUnicode = true;			
 			//JsConfig<LinkRelationType>.SerializeFn = (text => text.ToString().ToLower());
 
-			// Configuración de serviceStack
-			SetConfig(new EndpointHostConfig
+			// Configuración de ServiceStack            
+			SetConfig(new HostConfig
 			{
 				DebugMode = true,
-				WebHostUrl = HttpContext.Current.Request.Url.ToString()
+                ReturnsInnerException = true,
+				WebHostUrl = "http://localhost:2828"/*HttpContext.Current.Request.Url.ToString()*/
 			});			
 
 			// Plugins
@@ -84,59 +87,55 @@ namespace Northwind.Host.Web
 			queryPlugin.RegisterAssociation(typeof(GetCustomers), typeof(CustomerEntity));
 			queryPlugin.RegisterAssociation(typeof(Order), typeof(OrderEntity));
 			queryPlugin.RegisterAssociation(typeof(GetOrders), typeof(OrderEntity));
-			queryPlugin.RegisterAssociation(typeof(Supplier), typeof(SupplierEntity));
-			queryPlugin.RegisterAssociation(typeof(GetSuppliers), typeof(SupplierEntity));
 
-			Plugins.Add(queryPlugin);
+			Plugins.Add(queryPlugin as IPlugin);
 			Plugins.Add(new ValidationFeature());
 			Plugins.Add(new SwaggerFeature());
 			Plugins.Add(new RazorFormat());
 			Plugins.Add(new CorsFeature());
 
 			// Validaciones
-			container.RegisterValidators(typeof(CustomerValidator).Assembly);						
+			//container.RegisterValidators(typeof(CustomerValidator).Assembly);						
 
 			// Caché
-			container.Register<ICacheClient>(new MemoryCacheClient());
+			//container.Register<ICacheClient>(new MemoryCacheClient());
+            container.Register(new MemoryCacheClient());
+
+            // Acceso a datos
+            var dbFactory = new OrmLiteConnectionFactory("~/Northwind.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider);
+
+            container.Register(new OrmLiteConnectionFactory("~/Northwind.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
 
 			// Dependencias
-			container.RegisterAs<CategoryEntityRepository, ICategoryEntityRepository>();
-			container.RegisterAs<CustomerEntityRepository, ICustomerEntityRepository>();
-			container.RegisterAs<EmployeeEntityRepository, IEmployeeEntityRepository>();
-			container.RegisterAs<OrderEntityRepository, IOrderEntityRepository>();	
-			container.RegisterAs<OrderDetailEntityRepository, IOrderDetailEntityRepository>();
-			container.RegisterAs<ProductEntityRepository, IProductEntityRepository>();
-			container.RegisterAs<ShipperEntityRepository, IShipperEntityRepository>();
-			container.RegisterAs<SupplierEntityRepository, ISupplierEntityRepository>();
-			container.RegisterAs<RegionEntityRepository, IRegionEntityRepository>();
-			container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
-			container.RegisterAs<EmployeeTerritoryEntityRepository, IEmployeeTerritoryEntityRepository>();
+            //container.RegisterAs<CategoryEntityRepository, ICategoryEntityRepository>();
+            //container.RegisterAs<CustomerEntityRepository, ICustomerEntityRepository>();
+            //container.RegisterAs<EmployeeEntityRepository, IEmployeeEntityRepository>();
+            //container.RegisterAs<OrderEntityRepository, IOrderEntityRepository>();	
+            //container.RegisterAs<OrderDetailEntityRepository, IOrderDetailEntityRepository>();
+            //container.RegisterAs<ProductEntityRepository, IProductEntityRepository>();
+            //container.RegisterAs<ShipperEntityRepository, IShipperEntityRepository>();
+            //container.RegisterAs<SupplierEntityRepository, ISupplierEntityRepository>();
+            //container.RegisterAs<RegionEntityRepository, IRegionEntityRepository>();
+            //container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
 
-			container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
-			container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();
-			container.RegisterAs<EmployeeEntityRepository, IRepository<EmployeeEntity>>();
-			container.RegisterAs<OrderEntityRepository, IRepository<OrderEntity>>();
-			container.RegisterAs<OrderDetailEntityRepository, IRepository<OrderDetailEntity>>();
-			container.RegisterAs<ProductEntityRepository, IRepository<ProductEntity>>();
-			container.RegisterAs<ShipperEntityRepository, IRepository<ShipperEntity>>();
-			container.RegisterAs<SupplierEntityRepository, IRepository<SupplierEntity>>();
-			container.RegisterAs<RegionEntityRepository, IRepository<RegionEntity>>();
-			container.RegisterAs<TerritoryEntityRepository, IRepository<TerritoryEntity>>();
-			container.RegisterAs<EmployeeTerritoryEntityRepository, IRepository<EmployeeTerritoryEntity>>();
+            container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory));            
 
-			// Acceso a datos
-			var dbFactory = new OrmLiteConnectionFactory(
-				"~/Northwind.sqlite".MapHostAbsolutePath(),
-				SqliteDialect.Provider);
-
-			//var connStr = ConfigurationManager.ConnectionStrings["Northwind"].ConnectionString.Replace("{AppData}", AppDomain.CurrentDomain.BaseDirectory + @"..\Northwind.Data");
-			//var dbFactory = new OrmLiteConnectionFactory(connStr, true, SqliteDialect.Provider);
-			container.Register<IDbConnectionFactory>(dbFactory);
+            //container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
+            //container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();
+            //container.RegisterAs<EmployeeEntityRepository, IRepository<EmployeeEntity>>();
+            //container.RegisterAs<OrderEntityRepository, IRepository<OrderEntity>>();
+            //container.RegisterAs<OrderDetailEntityRepository, IRepository<OrderDetailEntity>>();
+            //container.RegisterAs<ProductEntityRepository, IRepository<ProductEntity>>();
+            //container.RegisterAs<ShipperEntityRepository, IRepository<ShipperEntity>>();
+            //container.RegisterAs<SupplierEntityRepository, IRepository<SupplierEntity>>();
+            //container.RegisterAs<RegionEntityRepository, IRepository<RegionEntity>>();
+            //container.RegisterAs<TerritoryEntityRepository, IRepository<TerritoryEntity>>();
+                         
 		}
 		#endregion
 
-		#endregion		
-		
+		#endregion			        
+
 		#region Miembros estáticos
 
 		#region Start
@@ -147,8 +146,8 @@ namespace Northwind.Host.Web
 		{
 			new AppHost().Init();
 		}
-		#endregion
+		#endregion        
 
-		#endregion
-	}
+        #endregion
+    }
 }

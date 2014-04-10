@@ -2,9 +2,8 @@
 using System;
 using System.Linq;
 using System.Net;
-using ServiceStack.Common;
-using ServiceStack.Common.Web;
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
+using ServiceStack.Web;
 using ServiceStack.Text;
 using Northwind.ServiceBase;
 using Northwind.ServiceInterface.Services;

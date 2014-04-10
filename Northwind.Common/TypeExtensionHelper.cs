@@ -80,7 +80,7 @@ namespace Northwind.Common
 		/// </summary>
 		/// <param name="type"><see cref="Type"/> que se instanciará</param>
 		/// <returns>Un <see cref="System.Object"/> del tipo indicado</returns>
-		public static object CreateInstance( this Type type )
+		public static object CreateTypeInstance( this Type type )
 		{
 			return CreateInstance(type, new object[] { });
 		}
@@ -92,7 +92,7 @@ namespace Northwind.Common
 		/// <returns>Un objeto de tipo <typeparamref name="T"/></returns>
 		public static T CreateInstance<T>()
 		{
-			return (T)CreateInstance(typeof(T));
+			return (T)CreateTypeInstance(typeof(T));
 		}
 
 		/// <summary>

@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using ServiceStack.OrmLite;
 using Northwind.Data.Model;
+using ServiceStack.Data;
 
 namespace Northwind.Data.Repositories
 {

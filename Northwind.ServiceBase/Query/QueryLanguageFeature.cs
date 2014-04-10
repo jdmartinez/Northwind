@@ -24,12 +24,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Reflection;
-using ServiceStack.Common.Reflection;
-using ServiceStack.ServiceHost;
-using ServiceStack.WebHost.Endpoints;
+using System.Web;
+using ServiceStack;
 using Northwind.Common;
 using Northwind.ServiceBase.Common;
 using Northwind.ServiceBase.Query.Parser;
+using ServiceStack.Web;
 
 namespace Northwind.ServiceBase.Query
 {
@@ -60,7 +60,7 @@ namespace Northwind.ServiceBase.Query
 		/// </summary>
 		public static bool IsEnabled
 		{
-			get { return EndpointHost.Plugins.Any(p => p is QueryLanguageFeature); }
+            get { return HostContext.HasPlugin<QueryLanguageFeature>(); }
 		}
 		#endregion		
 
@@ -77,7 +77,7 @@ namespace Northwind.ServiceBase.Query
 			Verify.ArgumentNotNull(appHost, "appHost");
 
 			_appHost = appHost;
-			_appHost.RequestFilters.Add(ProcessRequest);
+            _appHost.GlobalRequestFilters.Add((req, res, dto) => ProcessRequest(req, res, dto));
 		}
 
 		#endregion		
@@ -91,20 +91,21 @@ namespace Northwind.ServiceBase.Query
 		/// <param name="req"></param>
 		/// <param name="res"></param>
 		/// <param name="dto"></param>
-		private void ProcessRequest( IHttpRequest req, IHttpResponse res, object dto )
+		private void ProcessRequest( IRequest req, IResponse res, object dto )
 		{
 			Verify.ArgumentNotNull(req, "req");
 			Verify.ArgumentNotNull(res, "res");
 			Verify.ArgumentNotNull(dto, "dto");
 
-			if ( req.HttpMethod != "GET" ) return;			
+            //if (((HttpRequestWrapper)req.OriginalRequest).HttpMethod != "GET") return;
+            if (req.Verb != HttpMethods.Get) return;
 
 			if ( dto is ISearchable )
 			{
 				// Sólo creamos la expresión si los parámetros contiene alguna de las operaciones de query
 				if ( req.QueryString.AllKeys.Any(k => ServiceOperations.GetAllOperations().Contains(k)) )
 				{
-					SetQueryExpression(dto as ISearchable, req.QueryString);
+					SetQueryExpression(dto as ISearchable, (NameValueCollection)req.QueryString.Original);
 				}
 			}
 		}
@@ -124,7 +125,8 @@ namespace Northwind.ServiceBase.Query
 			if ( _associations.TryGetValue(typeOfDto.First(), out associatedType) )
 			{
 				var parserType = typeof(QueryParametersParser<>).MakeGenericType(associatedType);
-				var parser = parserType.CreateInstance();
+				//var parser = parserType.CreateTypeInstance();                
+                var parser = parserType.CreateInstance();
 
 				var queryExpr = Expression.Call(
 					Expression.Constant(parser, parserType),
@@ -134,7 +136,9 @@ namespace Northwind.ServiceBase.Query
 
 				var lambda = Expression.Lambda<Func<IQueryExpression>>(queryExpr);
 
-				dto.GetType().GetProperty("Query").SetValue(dto, lambda.Compile()(), null);
+				dto.GetType()
+				   .GetProperty("Query")
+				   .SetValue(dto, lambda.Compile()(), null);
 			}				
 		}
 		#endregion

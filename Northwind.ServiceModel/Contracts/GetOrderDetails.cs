@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 using Northwind.ServiceBase;
 using Northwind.ServiceModel.Dto;
 using Northwind.ServiceModel.Operations;
@@ -32,7 +32,7 @@ namespace Northwind.ServiceModel.Contracts
 	/// Clase que representa una petición para obtener el detalle de un <see cref="Order"/> 
 	/// </summary>
 	[Api("Get details from a single Order by Id.")]
-	[Route("/orders/{Id}/details", "GET")]
+	//[Route("/orders/{Id}/details", "GET")]
 	public class GetOrderDetails : CollectionRequest, IReturn<OrderDetailsCollectionResponse>
 	{
 		public long Id { get; set; }

@@ -21,8 +21,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.Service;
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
+using ServiceStack.Web;
 
 namespace Northwind.Test
 {

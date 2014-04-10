@@ -23,15 +23,15 @@ using System.Linq;
 using System.Text;
 using Northwind.ServiceBase;
 using Northwind.ServiceBase.Relations;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace Northwind.ServiceModel.Dto
 {
 	/// <summary>
 	/// Clase que representa una entidad <see cref="OrderDetail"/>
 	/// </summary>	
-	[Route("/orders/{Id}/details", "POST")]
-	[Route("/orders/{Id}/details/{Id}", "PUT DELETE")]
+	//[Route("/orders/{Id}/details", "POST")]
+	//[Route("/orders/{Id}/details/{Id}", "PUT DELETE")]
 	public class OrderDetail : CommonDto, IReturnVoid
 	{
 		public string Id { get; set; }

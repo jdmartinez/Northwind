@@ -19,17 +19,12 @@
           
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using ServiceStack.Common;
+using ServiceStack;
 using ServiceStack.OrmLite;
-using ServiceStack.Text;
 using Northwind.Common;
-using Northwind.Data.Model;
 using Northwind.Data.Expressions;
 
 namespace Northwind.Data
@@ -51,17 +46,10 @@ namespace Northwind.Data
 			Verify.ArgumentNotNull(dbConn, "dbConn");
 			Verify.ArgumentNotNull(selector, "selector");
 			
-			var ev = dbConn.CreateExpression<T>();
-			// TODO: hay un bug en OrmLite que impide hacer esto directamente
-			//ev.Select(selector);
-
-			var modelDef = ModelDefinition<T>.Definition;
 			var visitor = new SqlSelectExpressionTranslator();
-
 			var selectStr = GenerateSelectExpression(ModelDefinition<T>.Definition, visitor.Translate(selector), false);
-			ev.Select(selectStr);
-			
-			return dbConn.Select(ev);			
+
+            return dbConn.Select<T>(selectStr);
 		}
 
 		/// <summary>

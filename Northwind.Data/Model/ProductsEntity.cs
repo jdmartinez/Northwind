@@ -21,10 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 using ServiceStack.OrmLite;
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
+using ServiceStack.Model;
 
 namespace Northwind.Data.Model
 {

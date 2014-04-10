@@ -251,7 +251,7 @@ function program7(depth0,data) {
 Ember.TEMPLATES["customer/customer"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, stack2, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var buffer = '', stack1, stack2, hashTypes, hashContexts, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
@@ -262,12 +262,6 @@ function program1(depth0,data) {
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "fax", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("</dd>\r\n        ");
   return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  
-  data.buffer.push("\r\n                    <h3>Mapa</h3>\r\n                ");
   }
 
   data.buffer.push("<div id=\"customer-profile\" class=\"customer-profile\">\r\n    <div class=\"row customer-header\">\r\n        <i class=\"fa fa-user avatar img-circle\"></i>\r\n        <h3 class=\"name\">");
@@ -298,26 +292,25 @@ function program3(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "country", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</dd>\r\n            <dt class=\"separator\"></dt>\r\n            <dl></dl>\r\n            <dt>Phone</dt>\r\n            <dd>");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "phone", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</dd>\r\n        ");
-  hashTypes = {};
-  hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "fax", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n            <dt class=\"separator\"></dt>\r\n            <dl></dl>\r\n            <dt>Mapa<dt>\r\n            <dd>\r\n                ");
+  data.buffer.push("</dd>\r\n            <dd>\r\n                ");
   hashContexts = {'address': depth0,'width': depth0,'height': depth0};
   hashTypes = {'address': "ID",'width': "STRING",'height': "STRING"};
   options = {hash:{
     'address': ("completeAddress"),
     'width': ("100%"),
     'height': ("400px")
-  },inverse:self.noop,fn:self.program(3, program3, data),contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
-  stack2 = ((stack1 = helpers['google-map'] || depth0['google-map']),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "google-map", options));
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers['google-map'] || depth0['google-map']),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "google-map", options))));
+  data.buffer.push("\r\n            </dd>\r\n            <dt class=\"separator\"></dt>\r\n            <dl></dl>\r\n            <dt>Phone</dt>\r\n            <dd>");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "phone", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</dd>\r\n        ");
+  hashTypes = {};
+  hashContexts = {};
+  stack2 = helpers['if'].call(depth0, "fax", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
-  data.buffer.push("\r\n            </dd>\r\n        </dl>        \r\n    </div>    \r\n</div>\r\n");
+  data.buffer.push("\r\n        </dl>        \r\n    </div>    \r\n</div>\r\n");
   return buffer;
   
 });

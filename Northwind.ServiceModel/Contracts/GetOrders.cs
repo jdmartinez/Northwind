@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 using Northwind.ServiceBase;
 using Northwind.ServiceModel.Dto;
 using Northwind.ServiceModel.Operations;
@@ -31,7 +31,7 @@ namespace Northwind.ServiceModel.Contracts
 	/// <summary>
 	/// Clase que representa una petición del lista <see cref="Customer"/>
 	/// </summary>
-	[Route("/orders", "GET", Summary = @"Orders", Notes = @"Get list of orders")]
+	//[Route("/orders", "GET", Summary = @"Orders", Notes = @"Get list of orders")]
 	public class GetOrders : CollectionRequest, IReturn<OrdersCollectionResponse>
 	{
 

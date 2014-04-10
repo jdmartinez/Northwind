@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
-using ServiceStack.Common.Web;
+using ServiceStack;
 using ServiceStack.Text;
 using Northwind.ServiceBase;
 using Northwind.ServiceBase.Meta;

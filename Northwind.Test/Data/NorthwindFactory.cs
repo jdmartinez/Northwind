@@ -20,7 +20,6 @@ namespace Northwind.Test.Data
                         typeof(CategoryEntity),
                         typeof(RegionEntity),
                         typeof(TerritoryEntity),
-                        typeof(EmployeeTerritoryEntity),
                 };
 
 		public static CategoryEntity Category( int id, string categoryName, string description)
@@ -203,18 +202,7 @@ namespace Northwind.Test.Data
 				RegionId = regionId,
 				LastUpdated = DateTime.Now
 			};
-		}
-
-		public static EmployeeTerritoryEntity EmployeeTerritory(
-				int employeeId, string territoryId )
-		{
-			return new EmployeeTerritoryEntity
-			{
-				EmployeeId = employeeId,
-				TerritoryId = territoryId,
-				LastUpdated = DateTime.Now
-			};
-		}
+		}		
 
 	}
 }
