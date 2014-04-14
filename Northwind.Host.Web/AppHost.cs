@@ -94,17 +94,13 @@ namespace Northwind.Host.Web
 			Plugins.Add(new RazorFormat());
 			Plugins.Add(new CorsFeature());
 
-			// Validaciones
-			//container.RegisterValidators(typeof(CustomerValidator).Assembly);						
-
 			// Caché
-			//container.Register<ICacheClient>(new MemoryCacheClient());
             container.Register(new MemoryCacheClient());
 
             // Acceso a datos
             var dbFactory = new OrmLiteConnectionFactory("~/Northwind.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider);
 
-            container.Register(new OrmLiteConnectionFactory("~/Northwind.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
+            container.Register(dbFactory);
 
 			// Dependencias
             //container.RegisterAs<CategoryEntityRepository, ICategoryEntityRepository>();
@@ -118,7 +114,8 @@ namespace Northwind.Host.Web
             //container.RegisterAs<RegionEntityRepository, IRegionEntityRepository>();
             //container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
 
-            container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory));            
+            container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory));
+            container.Register<IOrderEntityRepository>(c => new OrderEntityRepository(dbFactory));
 
             //container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
             //container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();
@@ -130,6 +127,8 @@ namespace Northwind.Host.Web
             //container.RegisterAs<SupplierEntityRepository, IRepository<SupplierEntity>>();
             //container.RegisterAs<RegionEntityRepository, IRepository<RegionEntity>>();
             //container.RegisterAs<TerritoryEntityRepository, IRepository<TerritoryEntity>>();
+
+            container.RegisterAutoWired<CustomersService>();
                          
 		}
 		#endregion

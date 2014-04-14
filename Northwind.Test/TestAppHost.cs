@@ -26,6 +26,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
+using Funq;
 using ServiceStack;
 using ServiceStack.Logging;
 using ServiceStack.Caching;
@@ -85,7 +86,7 @@ namespace Northwind.Test
 		/// Configuración de los servicios web
 		/// </summary>
 		/// <param name="container">Contenedor IoC</param>
-		public override void Configure( Funq.Container container )
+		public override void Configure( Container container )
 		{
 			// JSON
             JsConfig.EmitCamelCaseNames = true;

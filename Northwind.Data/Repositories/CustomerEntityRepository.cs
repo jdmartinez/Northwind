@@ -54,7 +54,9 @@ namespace Northwind.Data.Repositories
 		{
 			using ( var db = dbFactory.OpenDbConnection() )
 			{				
-				return OrderRepository.GetFiltered(o => o.CustomerId == id).ToList();
+				return OrderRepository
+                    .GetFiltered(o => o.CustomerId == id)
+                    .ToList();
 			}			
 		}
 
