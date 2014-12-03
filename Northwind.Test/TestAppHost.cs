@@ -99,6 +99,7 @@ namespace Northwind.Test
 			// ServiceStack
 			SetConfig(new HostConfig
 			{
+                DefaultContentType = MimeTypes.Json,
 				DebugMode = true,
 				WebHostUrl = TestConfig.AbsoluteBaseUri.ToString()
 			});
@@ -154,6 +155,7 @@ namespace Northwind.Test
             //container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
 
             container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory));
+            container.Register<IOrderEntityRepository>(c => new OrderEntityRepository(dbFactory));
 
             //container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
             //container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();

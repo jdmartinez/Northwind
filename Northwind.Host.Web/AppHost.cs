@@ -76,6 +76,7 @@ namespace Northwind.Host.Web
 			// Configuración de ServiceStack            
 			SetConfig(new HostConfig
 			{
+                DefaultContentType = MimeTypes.Json,
 				DebugMode = true,
                 ReturnsInnerException = true,
 				WebHostUrl = "http://localhost:2828"/*HttpContext.Current.Request.Url.ToString()*/

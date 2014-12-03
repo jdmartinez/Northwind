@@ -136,8 +136,7 @@ namespace Northwind.ServiceBase
 			var totalCount = Repository.Count();
 
 			// Enlaces de paginación
-			var links = CreatePaginationLinks(request.Offset, request.Limit, totalCount);
-			
+			var links = CreatePaginationLinks(request.Offset, request.Limit, totalCount);			
 
 			// Creación de la respuesta
 			var response = CreateResponse<TResponse>(result);

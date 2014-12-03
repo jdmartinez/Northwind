@@ -19,6 +19,7 @@
           
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -105,5 +106,16 @@ namespace Northwind.Common
 		{
 			return (T)CreateInstance(typeof(T), args);
 		}
+
+        /// <summary>
+        /// Comprueba si <paramref name="type"/> es dinámico
+        /// </summary>
+        /// <param name="type">Tipo a comprobar</param>
+        /// <returns>true si es un objeto dinámico</returns>
+        public static bool IsDynamic(this Type type)
+        {
+            return typeof(IDynamicMetaObjectProvider).IsAssignableFrom(type);
+        }
+
 	}
 }
