@@ -124,7 +124,8 @@ namespace Northwind.Test
 			// Acceso a datos
 			var dbFactory = new OrmLiteConnectionFactory(":memory:", /*false,*/ SqliteDialect.Provider);
 
-			container.Register<IDbConnectionFactory>(dbFactory);
+			//container.Register<IDbConnectionFactory>(dbFactory);
+            container.Register(dbFactory);
 
 			using ( var db = dbFactory.OpenDbConnection() )
 			{
@@ -154,7 +155,10 @@ namespace Northwind.Test
             //container.RegisterAs<RegionEntityRepository, IRegionEntityRepository>();
             //container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
 
-            container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory));
+            container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory) 
+            {
+                OrderRepository = new OrderEntityRepository(dbFactory)
+            });
             container.Register<IOrderEntityRepository>(c => new OrderEntityRepository(dbFactory));
 
             //container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
