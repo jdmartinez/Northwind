@@ -81,7 +81,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var response1 = client.Get(new GetCustomers { Offset = 1, Limit = 10 });
 				var response2 = client.Get(new GetCustomers { Offset = 11, Limit = 10 });
 

@@ -23,6 +23,9 @@ using System.Linq;
 using System.Text;
 using ServiceStack;
 using ServiceStack.Web;
+using ServiceStack.Auth;
+using Northwind.ServiceBase.Authentication;
+using System.Diagnostics;
 
 namespace Northwind.Test
 {
@@ -51,13 +54,44 @@ namespace Northwind.Test
 		/// </summary>
 		public static Uri CustomerOrdersUri = new Uri(CustomerServiceUri, "{0}/orders");
 
+        /// <summary>
+        /// Nombre de usuario por defecto
+        /// </summary>
+        public static String DefaultUserName = "demo";
+
+        /// <summary>
+        /// Contraseña por defecto
+        /// </summary>
+        public static String DefaultPassword = "demo";
+
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <returns></returns>
-		internal static IRestClient CreateJsonServiceClient()
+		internal static IRestClient CreateJsonServiceClientWithUserAndPassword()
 		{
-			return new JsonServiceClient(AbsoluteBaseUri.ToString());
+            var client = new JsonServiceClient(AbsoluteBaseUri.ToString())
+            {
+                AlwaysSendBasicAuthHeader = true,
+                UserName = DefaultUserName,
+                Password = DefaultPassword                
+            };            
+
+            return client;
 		}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal static IRestClient CreateJsonServiceClientWithoutCredentials()
+        {
+            var client = new JsonServiceClient(AbsoluteBaseUri.ToString())
+            {
+                AlwaysSendBasicAuthHeader = true,
+            };
+
+            return client;
+        }
 	}
 }

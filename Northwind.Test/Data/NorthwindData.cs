@@ -18,6 +18,7 @@ namespace Northwind.Test.Data
 		public static List<OrderDetailEntity> OrderDetails { get; set; }
 		public static List<RegionEntity> Regions { get; set; }
 		public static List<TerritoryEntity> Territories { get; set; }
+        public static List<UsersEntity> Users { get; set; }
 
 		public static void LoadData()
 		{
@@ -3486,6 +3487,7 @@ namespace Northwind.Test.Data
                 NorthwindFactory.Region(4,"Southern"),
 			};
 
+            /*
 			Territories = new List<TerritoryEntity> {
                 NorthwindFactory.Territory("01581","Westboro",1),
                 NorthwindFactory.Territory("01730","Bedford",1),
@@ -3541,7 +3543,11 @@ namespace Northwind.Test.Data
                 NorthwindFactory.Territory("98052","Redmond",2),
                 NorthwindFactory.Territory("98104","Seattle",2),
 			};
-			
+             * */
+
+            Users = new List<UsersEntity> {
+                NorthwindFactory.Users("demo", "demo", "Demo User")
+            };
 		}		
 	}
 }

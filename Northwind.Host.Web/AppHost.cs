@@ -31,6 +31,7 @@ using ServiceStack.Validation;
 using ServiceStack.Text;
 using ServiceStack.Api.Swagger;
 using ServiceStack.Razor;
+using ServiceStack.Auth;
 using Funq;
 using Northwind.Data.Model;
 using Northwind.Data.Repositories;
@@ -38,6 +39,7 @@ using Northwind.ServiceBase;
 using Northwind.ServiceBase.Meta;
 using Northwind.ServiceBase.Query;
 using Northwind.ServiceBase.Relations;
+using Northwind.ServiceBase.Authentication;
 using Northwind.ServiceInterface.Services;
 using Northwind.ServiceInterface.Validators;
 using Northwind.ServiceModel.Contracts;
@@ -94,6 +96,14 @@ namespace Northwind.Host.Web
 			Plugins.Add(new SwaggerFeature());
 			Plugins.Add(new RazorFormat());
 			Plugins.Add(new CorsFeature());
+            Plugins.Add(new AuthFeature(() => new NorthwindUserSession(),
+                new IAuthProvider[] 
+                { 
+                    new NorthwindAuthProvider(),                    
+                })
+            {
+                HtmlRedirect = null
+            });
 
 			// Caché
             container.Register(new MemoryCacheClient());
@@ -103,31 +113,9 @@ namespace Northwind.Host.Web
 
             container.Register(dbFactory);
 
-			// Dependencias
-            //container.RegisterAs<CategoryEntityRepository, ICategoryEntityRepository>();
-            //container.RegisterAs<CustomerEntityRepository, ICustomerEntityRepository>();
-            //container.RegisterAs<EmployeeEntityRepository, IEmployeeEntityRepository>();
-            //container.RegisterAs<OrderEntityRepository, IOrderEntityRepository>();	
-            //container.RegisterAs<OrderDetailEntityRepository, IOrderDetailEntityRepository>();
-            //container.RegisterAs<ProductEntityRepository, IProductEntityRepository>();
-            //container.RegisterAs<ShipperEntityRepository, IShipperEntityRepository>();
-            //container.RegisterAs<SupplierEntityRepository, ISupplierEntityRepository>();
-            //container.RegisterAs<RegionEntityRepository, IRegionEntityRepository>();
-            //container.RegisterAs<TerritoryEntityRepository, ITerritoryEntityRepository>();
-
             container.Register<ICustomerEntityRepository>(c => new CustomerEntityRepository(dbFactory));
             container.Register<IOrderEntityRepository>(c => new OrderEntityRepository(dbFactory));
-
-            //container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
-            //container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();
-            //container.RegisterAs<EmployeeEntityRepository, IRepository<EmployeeEntity>>();
-            //container.RegisterAs<OrderEntityRepository, IRepository<OrderEntity>>();
-            //container.RegisterAs<OrderDetailEntityRepository, IRepository<OrderDetailEntity>>();
-            //container.RegisterAs<ProductEntityRepository, IRepository<ProductEntity>>();
-            //container.RegisterAs<ShipperEntityRepository, IRepository<ShipperEntity>>();
-            //container.RegisterAs<SupplierEntityRepository, IRepository<SupplierEntity>>();
-            //container.RegisterAs<RegionEntityRepository, IRepository<RegionEntity>>();
-            //container.RegisterAs<TerritoryEntityRepository, IRepository<TerritoryEntity>>();
+            container.Register<IUserEntityRepository>(c => new UserEntityRepository(dbFactory));
 
             container.RegisterAutoWired<CustomersService>();
                          

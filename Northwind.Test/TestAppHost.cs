@@ -34,12 +34,14 @@ using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
 using ServiceStack.Validation;
 using ServiceStack.Text;
+using ServiceStack.Auth;
 using Northwind.Data.Model;
 using Northwind.Data.Repositories;
 using Northwind.ServiceBase;
 using Northwind.ServiceBase.Meta;
 using Northwind.ServiceBase.Query;
 using Northwind.ServiceBase.Relations;
+using Northwind.ServiceBase.Authentication;
 using Northwind.ServiceInterface.Services;
 using Northwind.ServiceInterface.Validators;
 using Northwind.ServiceModel.Contracts;
@@ -114,6 +116,14 @@ namespace Northwind.Test
             Plugins.Add(queryPlugin as IPlugin);	
 			Plugins.Add(new ValidationFeature());
 			Plugins.Add(new CorsFeature());
+            Plugins.Add(new AuthFeature(() => new NorthwindUserSession(), 
+                new IAuthProvider[] 
+                { 
+                    new NorthwindAuthProvider(),                    
+                }) 
+            { 
+                HtmlRedirect = null 
+            });
 
 			// Validaciones
 			container.RegisterValidators(typeof(CustomerValidator).Assembly);
@@ -140,7 +150,8 @@ namespace Northwind.Test
 				db.InsertAll(NorthwindData.Regions);
 				db.InsertAll(NorthwindData.Shippers);
 				db.InsertAll(NorthwindData.Suppliers);
-				db.InsertAll(NorthwindData.Territories);				
+				//db.InsertAll(NorthwindData.Territories);
+                db.InsertAll(NorthwindData.Users);
 			}
 
             // Dependencias
@@ -159,7 +170,9 @@ namespace Northwind.Test
             {
                 OrderRepository = new OrderEntityRepository(dbFactory)
             });
+
             container.Register<IOrderEntityRepository>(c => new OrderEntityRepository(dbFactory));
+            container.Register<IUserEntityRepository>(c => new UserEntityRepository(dbFactory));
 
             //container.RegisterAs<CategoryEntityRepository, IRepository<CategoryEntity>>();
             //container.RegisterAs<CustomerEntityRepository, IRepository<CustomerEntity>>();
@@ -173,7 +186,7 @@ namespace Northwind.Test
             //container.RegisterAs<TerritoryEntityRepository, IRepository<TerritoryEntity>>();
 
 		}
-		#endregion
+		#endregion        
 
 		#endregion
 		

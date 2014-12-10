@@ -19,7 +19,8 @@ namespace Northwind.Test.Data
                         typeof(OrderDetailEntity),
                         typeof(CategoryEntity),
                         typeof(RegionEntity),
-                        typeof(TerritoryEntity),
+                        //typeof(TerritoryEntity),
+                        typeof(UsersEntity),
                 };
 
 		public static CategoryEntity Category( int id, string categoryName, string description)
@@ -203,6 +204,18 @@ namespace Northwind.Test.Data
 				LastUpdated = DateTime.Now
 			};
 		}		
+
+        public static UsersEntity Users (
+            string userName, string password, string fullName)
+        {
+            return new UsersEntity
+            {
+                Id = new Guid().ToByteArray(),
+                UserName = userName,
+                Password = password,
+                FullName = fullName
+            };
+        }
 
 	}
 }

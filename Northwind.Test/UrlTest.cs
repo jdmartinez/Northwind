@@ -81,7 +81,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var responseJson = (TestConfig.CustomerServiceUri.ToString()).GetJsonFromUrl();
 
 				var responseObj = JsonSerializer.DeserializeFromString<CustomersCollectionResponse>(responseJson);
@@ -104,7 +104,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var selectUri = TestConfig.CustomerServiceUri.ToString() + "?select={0}";
 				var responseJson = (selectUri.Fmt("id,companyName,contactName")).GetJsonFromUrl();
 

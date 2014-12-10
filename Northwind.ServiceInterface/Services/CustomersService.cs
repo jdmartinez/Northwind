@@ -38,6 +38,7 @@ namespace Northwind.ServiceInterface.Services
 	/// <summary>
 	/// Servicio de <see cref="Customer"/> 
 	/// </summary>	
+    [Authenticate]
 	public class CustomersService : ServiceBase<CustomerEntity, Customer>
 	{
 		public CustomersService( ICustomerEntityRepository repository )

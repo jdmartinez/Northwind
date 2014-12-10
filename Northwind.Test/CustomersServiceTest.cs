@@ -94,8 +94,8 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
-				var response = client.Get(new GetCustomers());
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
+				var response = client.Get(new GetCustomers());                
 
 				AssertCollectionResponseIsValid(response);
 			}
@@ -110,7 +110,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var response = client.Get(new GetCustomers());
 
 				var itemIndex = new Random().Next(1, response.Count);
@@ -133,7 +133,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var response = client.Get(new GetCustomers());
 
 				var itemIndex = new Random().Next(1, response.Count);
@@ -160,7 +160,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var response = client.Get(new GetCustomers());
 
 				AssertCollectionResponseIsValid(response);
@@ -193,7 +193,7 @@ namespace Northwind.Test
 					Fax = "Test Fax",
 				};
 
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				client.Post(customer);
 
 				var response = client.Get(new GetCustomer { Id = customer.Id });
@@ -212,7 +212,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var customer = client.Get(new GetCustomers()).Customers.First();
 
 				client.Delete(customer);
@@ -236,7 +236,7 @@ namespace Northwind.Test
 		{
 			try
 			{
-				var client = TestConfig.CreateJsonServiceClient();
+				var client = TestConfig.CreateJsonServiceClientWithUserAndPassword();
 				var customer = client.Get(new GetCustomers()).Customers.First();
 				customer.ContactName = "Updated";
 
@@ -254,5 +254,21 @@ namespace Northwind.Test
 			}
 
 		}
+
+        [TestMethod]
+        public void Access_without_authentication_credentials_throws_Unauthorized()
+        {
+            try
+            {
+                var client = TestConfig.CreateJsonServiceClientWithoutCredentials();
+                var customer = client.Get(new GetCustomers());
+
+                Assert.Fail("No debería estar permitido");
+            }
+            catch (WebServiceException ex)
+            {
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.StatusCode);
+            }
+        }
 	}
 }
