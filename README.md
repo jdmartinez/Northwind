@@ -19,9 +19,10 @@ Actualmente el proyecto soporta una pequeña serie de características. Las que 
 
 **Servidor**
 
-- Recuperación de elementos y colecciones (sólo *Customers*, *Orders* y *Shippers*).
+- Recuperación de elementos y colecciones (sólo *Customers* y *Orders*).
 - Paginación.
 - Primer intento de resultados parciales.
+- Autenticación
 
 ## Características planeadas ##
 
