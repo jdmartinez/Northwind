@@ -1,4 +1,4 @@
-# Nortwind [![Build status](https://ci.appveyor.com/api/projects/status/swi5h3ncwxfcoaq1?svg=true)](https://ci.appveyor.com/project/jdmartinez/northwind)
+# Nortwind [![Build status](https://ci.appveyor.com/api/projects/status/swi5h3ncwxfcoaq1?svg=true)](https://ci.appveyor.com/project/jdmartinez/northwind) [![Coverage Status](https://coveralls.io/repos/github/jdmartinez/Northwind/badge.svg?branch=master)](https://coveralls.io/github/jdmartinez/Northwind?branch=master)
 
 Ejemplo de servicio web RESTful con interfaz de usuario HTML5 y CSS3. Este proyecto incluye algunos proyectos de código abierto como: 
 
