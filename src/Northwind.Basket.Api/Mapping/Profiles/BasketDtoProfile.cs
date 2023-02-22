@@ -8,9 +8,11 @@ public class BasketDtoProfile : Profile
 {
     public BasketDtoProfile()
     {
-        CreateMap<Domain.Entities.Basket, BasketDto>();
+        CreateMap<string, Guid>().ConvertUsing(s => Guid.Parse(s));
+
+        CreateMap<Domain.Entities.Basket, BasketDto>()
+            .ReverseMap();
         CreateMap<Domain.Entities.BasketItem, BasketItemDto>()
-            .ForMember(dto => dto.ProductId, opt => opt.MapFrom(src => src.ProductId))
-            .ForMember(dto => dto.Quantity, opt => opt.MapFrom(src => src.Quantity));
+            .ReverseMap();
     }
 }

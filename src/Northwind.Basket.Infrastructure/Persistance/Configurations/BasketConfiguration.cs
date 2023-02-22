@@ -17,7 +17,7 @@ public class BasketConfiguration : IEntityTypeConfiguration<Domain.Entities.Bask
             .HasColumnName("CustomerId")
             .IsRequired();
 
-        builder.HasMany(b => b.Items);            
+        builder.HasMany(b => b.Items);
 
         var navigation = builder.Metadata.FindNavigation(nameof(Domain.Entities.Basket.Items));
         navigation?.SetPropertyAccessMode(PropertyAccessMode.Property);

@@ -34,10 +34,9 @@ public class BasketModule : IBasketModule
         => await _repository.GetByCustomerIdAsync(customerId, token);
 
     public async Task UpdateAsync(Domain.Entities.Basket basket, CancellationToken token = default)
-    {
+    {                
         _repository.Update(basket);
 
         await _repository.SaveChangesAsync(token);
-    }
-    
+    }    
 }

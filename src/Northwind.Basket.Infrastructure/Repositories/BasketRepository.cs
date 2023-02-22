@@ -36,8 +36,8 @@ public class BasketRepository : RepositoryBase<Domain.Entities.Basket>, IBasketR
     public async Task<Domain.Entities.Basket?> GetByCustomerIdAsync(string customerId, CancellationToken token)
     {
         var basket = await _context.Set<Domain.Entities.Basket>()
-//            .Include(b => b.Items)
-            .FirstOrDefaultAsync(b => b.CustomerId == customerId);
+            .Include(b => b.Items)
+            .FirstOrDefaultAsync(b => b.CustomerId == customerId, token);
 
         basket ??= _context.Set<Domain.Entities.Basket>().Local.FirstOrDefault(b => b.CustomerId == customerId);
 
