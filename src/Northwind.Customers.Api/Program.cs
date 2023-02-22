@@ -10,14 +10,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .CreateLogger();
-
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Logging.ClearProviders();
-        builder.Host.UseSerilog();
+        builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
         // Add services to the container.       
 
