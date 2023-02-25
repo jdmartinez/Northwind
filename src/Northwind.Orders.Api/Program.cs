@@ -1,6 +1,12 @@
 using System.Reflection;
 
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Converters;
+
+using Northwind.Shared.Infrastructure.EventBus.Consumers;
+using Northwind.Shared.Infrastructure.EventBus.RabbitMq;
+
+using Northwind.Shared.Infrastructure.EventBus.Settings;
 
 using Serilog;
 
@@ -35,6 +41,11 @@ public class Program
 
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+        // RabbitMq 
+        builder.Services.Configure<EventBusSettings>(builder.Configuration.GetSection("Rabbit"));
+        builder.Services.AddSingleton(f => f.GetRequiredService<IOptions<EventBusSettings>>().Value);        
+        builder.Services.AddHostedService<OrderAcceptedService>();
+
         var app = builder.Build();
 
         app.UseSerilogRequestLogging();
@@ -61,7 +72,7 @@ public class Program
             endpoints.MapControllers();
         });
 
-        app.MapControllers();
+        app.MapControllers();                
 
         app.Run();
     }

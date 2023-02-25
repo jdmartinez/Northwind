@@ -4,6 +4,9 @@ using Northwind.Orders.Application.Interfaces;
 using Northwind.Orders.Application.Modules;
 using Northwind.Orders.Application.Repositories;
 using Northwind.Orders.Infrastructure.Repositories;
+using Northwind.Shared.Application.Events.Handlers;
+using Northwind.Shared.Application.Events;
+using Northwind.Shared.Application.Interfaces;
 using Northwind.Shared.Infrastructure.Persistence;
 
 namespace Northwind.Orders.Api;
@@ -19,6 +22,8 @@ public static class DependencyInjectionExtensions
 
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrdersModule, OrdersModule>();
+
+        services.AddTransient<OrderAcceptedEventHandler, OrderAcceptedEventHandler>();
 
         return services;
     }

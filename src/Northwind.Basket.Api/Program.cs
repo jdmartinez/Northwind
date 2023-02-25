@@ -1,15 +1,18 @@
 using System.Reflection;
 
+using Microsoft.Extensions.Options;
+
 using Newtonsoft.Json.Converters;
 
 using Northwind.Basket.Api;
+using Northwind.Shared.Infrastructure.EventBus.RabbitMq;
+using Northwind.Shared.Infrastructure.EventBus.Settings;
 
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Logging.ClearProviders();
 builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -30,6 +33,16 @@ builder.Services.AddControllersWithViews()
     });
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+// RabbitMq 
+builder.Services.Configure<EventBusSettings>(builder.Configuration.GetSection("Rabbit"));
+builder.Services.AddSingleton<IRabbitMqPublisher>(f =>
+{
+    var logger = f.GetRequiredService<ILogger<RabbitMqPublisher>>();
+    var settings = f.GetRequiredService<IOptions<EventBusSettings>>().Value;
+
+    return new RabbitMqPublisher(logger, settings);
+});
 
 var app = builder.Build();
 

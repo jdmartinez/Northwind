@@ -4,7 +4,7 @@ namespace Northwind.Basket.Api.DTO;
 
 public class BasketItemDto
 {
-    //public Guid BasktetId { get; set; }
+    //public Id BasktetId { get; set; }
 
     public int ProductId { get; set; }
 
