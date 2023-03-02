@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using Northwind.Products.Application.Repositories;
-using Northwind.Shared.Application;
 using Northwind.Shared.Domain.Entities;
 using Northwind.Shared.Infrastructure.Persistence;
 

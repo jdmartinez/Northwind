@@ -1,8 +1,14 @@
 using System.Reflection;
 
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Converters;
+using Northwind.Shared.Infrastructure.Caching.Redis;
+
+using Northwind.Shared.Infrastructure.Caching;
 
 using Serilog;
+
+using StackExchange.Redis;
 
 namespace Northwind.Customers.Api;
 
@@ -35,6 +41,10 @@ public class Program
             });
 
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+        // Redis
+        builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")));
+        builder.Services.AddSingleton<ICacheProvider, RedisCacheProvider>();
 
         var app = builder.Build();
 

@@ -3,6 +3,7 @@
 using Northwind.Basket.Application.Repositories;
 using Northwind.Basket.Infrastructure.Persistance;
 using Northwind.Shared.Application;
+using Northwind.Shared.Infrastructure.Persistence;
 
 namespace Northwind.Basket.Infrastructure.Repositories;
 

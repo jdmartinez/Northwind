@@ -2,7 +2,7 @@
 
 using Northwind.Shared.Application.Interfaces;
 
-namespace Northwind.Shared.Application;
+namespace Northwind.Shared.Infrastructure.Persistence;
 
 public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
 {
@@ -15,7 +15,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEnti
         await _context.Set<TEntity>().AddAsync(entity, token);
 
         return entity;
-    }    
+    }
 
     public void DeleteAsync(TEntity entity)
     {
@@ -32,7 +32,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEnti
     public virtual async Task<TEntity?> GetAsync<TId>(TId id, CancellationToken token = default) where TId : notnull
         => await _context.Set<TEntity>().FindAsync(new object[] { id }, token);
 
-    public virtual void Update(TEntity entity)  => _context.Set<TEntity>().Update(entity);
+    public virtual void Update(TEntity entity) => _context.Set<TEntity>().Update(entity);
 
     public virtual void Delete(TEntity entity) => _context.Set<TEntity>().Remove(entity);
 

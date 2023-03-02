@@ -18,6 +18,7 @@ public static class DependencyInjectionExtensions
             ServiceLifetime.Transient);
 
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.Decorate<ICustomerRepository, CachedCustomerRepository>();
 
         services.AddScoped<ICustomersModule, CustomersModule>();
 
