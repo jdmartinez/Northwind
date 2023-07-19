@@ -1,8 +1,12 @@
 using System.Reflection;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using Newtonsoft.Json.Converters;
 
 using Serilog;
+
+using StackExchange.Redis;
 
 namespace Northwind.Customers.Api;
 
@@ -35,6 +39,9 @@ public class Program
             });
 
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+        // Redis
+        builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")));
 
         var app = builder.Build();
 

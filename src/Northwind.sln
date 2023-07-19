@@ -48,6 +48,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{0F996611-F73
 		Sql\northwind.sql = Sql\northwind.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{003834D9-2822-4FEE-9BC3-16B8068D76EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Gateway", "Northwind.Gateway\Northwind.Gateway.csproj", "{39409C9E-298D-4A94-917D-F8511360EF7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +114,10 @@ Global
 		{734D586C-6D82-4B5A-AB76-5C29EA67D7DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734D586C-6D82-4B5A-AB76-5C29EA67D7DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{734D586C-6D82-4B5A-AB76-5C29EA67D7DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39409C9E-298D-4A94-917D-F8511360EF7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39409C9E-298D-4A94-917D-F8511360EF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39409C9E-298D-4A94-917D-F8511360EF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39409C9E-298D-4A94-917D-F8511360EF7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +141,8 @@ Global
 		{79EEC98F-0904-4B5F-8FAC-73407772AD00} = {8148C9DC-F392-432E-8F34-B95EBB43BE85}
 		{2643F5B3-4113-47E4-82D9-B1981289FD27} = {8148C9DC-F392-432E-8F34-B95EBB43BE85}
 		{734D586C-6D82-4B5A-AB76-5C29EA67D7DF} = {8148C9DC-F392-432E-8F34-B95EBB43BE85}
+		{003834D9-2822-4FEE-9BC3-16B8068D76EA} = {B5B49534-8978-4B68-939C-33504F500F31}
+		{39409C9E-298D-4A94-917D-F8511360EF7F} = {003834D9-2822-4FEE-9BC3-16B8068D76EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5FF33CC6-7741-4636-A9D7-142778522C9D}
