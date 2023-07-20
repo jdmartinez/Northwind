@@ -50,7 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{0F996611-F73
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{003834D9-2822-4FEE-9BC3-16B8068D76EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Gateway", "Northwind.Gateway\Northwind.Gateway.csproj", "{39409C9E-298D-4A94-917D-F8511360EF7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Gateway", "Northwind.Gateway\Northwind.Gateway.csproj", "{39409C9E-298D-4A94-917D-F8511360EF7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

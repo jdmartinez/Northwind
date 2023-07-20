@@ -3,7 +3,7 @@ using System.Reflection;
 using Newtonsoft.Json.Converters;
 
 using Northwind.Products.Api;
-
+using Northwind.Products.Api.Grpc;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen()
     .AddSwaggerGenNewtonsoftSupport();
+
+builder.Services.AddGrpc();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -54,7 +56,25 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
+
     endpoints.MapControllers();
+
+    endpoints.MapGet("/_proto/", async ctx =>
+    {
+        ctx.Response.ContentType = "text/plain";
+        using var fs = new FileStream(Path.Combine(app.Environment.ContentRootPath, "Proto", "catalog.proto"), FileMode.Open, FileAccess.Read);
+        using var sr = new StreamReader(fs);
+        while (!sr.EndOfStream)
+        {
+            var line = await sr.ReadLineAsync();
+            if (line != "/* >>" || line != "<< */")
+            {
+                await ctx.Response.WriteAsync(line);
+            }
+        }
+    });
+
+    endpoints.MapGrpcService<ProductService>();
 });
 
 app.MapControllers();

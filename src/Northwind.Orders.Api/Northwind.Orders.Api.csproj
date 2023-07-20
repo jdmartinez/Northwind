@@ -17,6 +17,11 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	  <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
 	  <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+	  <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.55.0" />
+	  <PackageReference Include="Grpc.Core" Version="2.46.6" />
+	  <PackageReference Include="Grpc.Net.Client" Version="2.55.0" />
+	  <PackageReference Include="Grpc.Net.ClientFactory" Version="2.55.0" />
+	  <PackageReference Include="Grpc.Tools" Version="2.56.2" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

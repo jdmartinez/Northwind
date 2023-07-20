@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using Northwind.Orders.Api.DTO;
 using Northwind.Orders.Application.Interfaces;
+using Northwind.Orders.Infrastructure.Grpc;
+using Northwind.Shared.Domain.Entities;
 
 namespace Northwind.Orders.Api.Controllers;
 
@@ -31,6 +33,21 @@ public class OrdersController : ControllerBase
     {
         var order = await _module.GetByIdAsync(orderId, token);
 
-        return order is null ? NotFound() : Ok(_mapper.Map<OrderDto>(order));
+        if (order is null) return NotFound();
+
+        var dto = _mapper.Map<OrderDto>(order);
+
+        await GetProductInfo(dto);
+
+        return Ok(dto);
+    }
+
+    private async Task GetProductInfo(OrderDto order)
+    {
+        foreach (var detail in order.OrderDetails)
+        {
+            var response = await GrpcClient.GetProductById(detail.ProductId);
+            detail.ProductName = response.Name;
+        }
     }
 }
