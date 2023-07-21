@@ -2,6 +2,7 @@ using Ocelot.Administration;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,12 +17,33 @@ builder.Services
 
 builder.Services
     .AddOpenTelemetry()
-    .WithTracing(builder =>
+    .WithTracing(tracing =>
     {
-        builder.AddAspNetCoreInstrumentation();
-        builder.AddRedisInstrumentation();
-        builder.AddEntityFrameworkCoreInstrumentation();
-        builder.AddConsoleExporter();
+        tracing.ConfigureResource(resource =>
+        {
+            resource.AddService(
+                builder.Environment.ApplicationName,
+                builder.Environment.EnvironmentName,
+                builder.Configuration["OpenTelemetry:ApplicationVersion"],
+                false,
+                Environment.MachineName);
+        })
+        .AddHttpClientInstrumentation(opt => opt.RecordException = true)
+        .AddAspNetCoreInstrumentation(opt => opt.RecordException = true)
+        .AddRedisInstrumentation()
+        .AddSqlClientInstrumentation(opt =>
+        {
+            opt.RecordException = true;
+            opt.SetDbStatementForText = true;
+        })
+        .AddEntityFrameworkCoreInstrumentation(opt => opt.SetDbStatementForText = true)
+        .AddOtlpExporter(opt =>
+        {
+            opt.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc;
+            opt.Endpoint = new Uri(builder.Configuration["OpenTelemetry:Exporter:Otlp:Endpoint"]!);
+        })
+        .AddConsoleExporter();
+
     })
     .WithMetrics(metrics =>
     {
@@ -44,8 +66,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
+    //    app.UseSwagger();
+    //    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

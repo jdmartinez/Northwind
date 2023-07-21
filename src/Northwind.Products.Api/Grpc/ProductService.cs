@@ -1,7 +1,6 @@
 ﻿using Grpc.Core;
 using Northwind.Products.Api.Proto;
 using Northwind.Products.Application.Interfaces;
-using Northwind.Shared.Infrastructure.Persistence;
 using static Northwind.Products.Api.Proto.Products;
 
 namespace Northwind.Products.Api.Grpc
