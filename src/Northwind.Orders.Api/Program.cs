@@ -1,7 +1,7 @@
 using System.Reflection;
 
 using Newtonsoft.Json.Converters;
-
+using Northwind.Shared.Grpc.Infrastructure;
 using Serilog;
 using static Northwind.Products.Api.Proto.Products;
 
@@ -37,7 +37,8 @@ public class Program
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         builder.Services
-            .AddGrpcClient<ProductsClient>(options => options.Address = new Uri("https://localhost:7294/"));
+            .AddGrpcClients()
+            .AddClient<ProductsClient>("https://localhost", 7294);
 
         var app = builder.Build();
 
