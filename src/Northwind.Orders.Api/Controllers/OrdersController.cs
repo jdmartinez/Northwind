@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using Northwind.Orders.Api.DTO;
 using Northwind.Orders.Application.Interfaces;
-using Northwind.Orders.Infrastructure.Grpc;
-using Northwind.Shared.Domain.Entities;
+using Northwind.Products.Api.Proto;
+using static Northwind.Products.Api.Proto.Products;
 
 namespace Northwind.Orders.Api.Controllers;
 
@@ -14,13 +14,15 @@ namespace Northwind.Orders.Api.Controllers;
 [Tags(new[] { "Orders" })]
 public class OrdersController : ControllerBase
 {
-    private readonly IOrdersModule _module;
-    private readonly ILogger<OrdersController> _logger;
+    private readonly IOrdersModule _module = default!;
+    private readonly ProductsClient _productsClient = default!;
+    private readonly ILogger<OrdersController> _logger = default!;
     private readonly IMapper _mapper;
 
-    public OrdersController(IOrdersModule module, ILogger<OrdersController> logger, IMapper mapper)
+    public OrdersController(IOrdersModule module, ProductsClient productsClient, ILogger<OrdersController> logger, IMapper mapper)
     {
         _module = module;
+        _productsClient = productsClient;
         _logger = logger;
         _mapper = mapper;
     }
@@ -46,7 +48,7 @@ public class OrdersController : ControllerBase
     {
         foreach (var detail in order.OrderDetails)
         {
-            var response = await GrpcClient.GetProductById(detail.ProductId);
+            var response = await _productsClient.GetProductByIdAsync(new ProductItemRequest { Id = detail.ProductId });
             detail.ProductName = response.Name;
         }
     }
